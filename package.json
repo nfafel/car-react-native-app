@@ -6,7 +6,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "./node_modules/.bin/jetify"
+    "postinstall": "npx jetify"
   },
   "dependencies": {
     "appcenter": "^2.1.0",
