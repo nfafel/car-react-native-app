@@ -9,9 +9,6 @@
     "postinstall": "./node_modules/.bin/jetify"
   },
   "dependencies": {
-    "appcenter": "^2.1.0",
-    "appcenter-analytics": "^2.1.0",
-    "appcenter-crashes": "^2.1.0",
     "formik": "^1.5.7",
     "navigationbar-react-native": "0.0.5",
     "react": "16.8.6",
