@@ -131,19 +131,20 @@ class CarsComponent extends Component {
     getCarsDisplay = (props) => {
         var carsData = this.state.cars.map((car) => {
             if (this.state.shouldGetPutData && car._id === this.state.carIdUpdate) {
-                return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText={"UPDATE"} />);
+                return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
                 
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
-                    <Row data={[
+                    <Row key={car._id} data={[
                         <Text>{car.year}</Text>, 
                         <Text>{car.make}</Text>,
                         <Text>{car.model}</Text>, 
-                        <Text>{car.rating}</Text>
+                        <Text>{car.rating}</Text>,
+                        <Text></Text>
                     ]} />
                 )
             } else {
-                return ( <Row data={[
+                return ( <Row key={car._id} data={[
                     <Text>{car.year}</Text>, 
                     <Text>{car.make}</Text>, 
                     <Text>{car.model}</Text>, 
@@ -157,12 +158,13 @@ class CarsComponent extends Component {
             }
         });
         if (this.state.shouldGetPostData) {
-            carsData.push(<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText={"NEW CAR"} />);
+            carsData.push(<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
         }
         return (carsData);
     }
   
     handleCorrectSumbit = (values) => {
+        alert(values.year+"  "+values.make+"  "+values.model+"  "+values.rating);
         if (this.state.shouldGetPostData) {
             this.callPostData(values);
         } else {
