@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import { View, Text, Button, ScrollView, TextInput } from 'react-native';
-
+import { View, Text, Button, ScrollView, Overlay} from 'react-native';
+import Modal from "react-native-modal";
 import { Formik } from 'formik';
 import * as Yup from 'yup'
-//import RepairsByCarComponent from './RepairsByCarComponent'
-
+import RepairsByCarComponent from './RepairsByCarComponent'
 import CarFormComponent from './CarFormComponent'
-
-import { Table, Row, Rows } from 'react-native-table-component';
+import { Table, Row, Col } from 'react-native-table-component';
 
 const queryFunctions = require('./queryFuncForCarsComponent')
 
@@ -25,6 +23,7 @@ class CarsComponent extends Component {
         repairCarModel: null,
         repairCarYear: null,
         carForm: null,
+        modalVisible: false
       }
     }
     
@@ -101,60 +100,122 @@ class CarsComponent extends Component {
                 repairCarId: repairCarId,
                 repairCarMake: repairCarMake,
                 repairCarModel: repairCarModel,
-                repairCarYear: repairCarYear
+                repairCarYear: repairCarYear,
+                modalVisible: true
             }))
             .catch(err => console.log(err));
     }
 
     showRepairsForCar = () => {
         if (this.state.repairsForCar != null) {
-            return (<RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />);
+            return (
+                
+                    <Modal 
+                        style={{
+                            backgroundColor: 'white',
+                            margin: 20,
+                            flex: 0.5,
+                            flexDirection: 'row',
+                            justifyContent: 'center'
+                          }}
+                        isVisible={this.state.modalVisible}
+                    >
+                        <View>
+                            <View style={{flex:1, flexDirection:'row', justifyContent: 'center'}}>
+                                <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
+                            </View>
+                            <View style={{flex:1, justifyContent: 'flex-end'}}>
+                                <Button 
+                                    style={{
+                                        justifyContent: 'flex-end',
+                                        }}
+                                    onPress={() => this.setState({modalVisible: false})}
+                                    title="Hide Repairs"
+                                />
+                            </View>
+                        </View>
+                    </Modal>
+                
+            );
         } 
     }
 
     getNewCarButton = (resetForm) => {
         if (!(this.state.shouldGetPutData || this.state.shouldGetPostData)) {
-            return (<Button title="NEW CAR" onPress={() => this.getPostData(resetForm)} />)
+            return (
+                <View style={{position: 'absolute', bottom: 5, left:0, right:0, marginHorizontal: 20 }} >
+                    <Button style={{flex:1}} title="NEW CAR" onPress={() => this.getPostData(resetForm)} />
+                </View>
+            )
         }
     }
   
     tableStyles = {
-        "width": "90%",
-     
+        
     };
 
     rowColStyles = {
         
-     
     };
   
     getCarsDisplay = (props) => {
         var carsData = this.state.cars.map((car) => {
             if (this.state.shouldGetPutData && car._id === this.state.carIdUpdate) {
                 return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
-                
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
-                    <Row key={car._id} data={[
-                        <Text>{car.year}</Text>, 
-                        <Text>{car.make}</Text>,
-                        <Text>{car.model}</Text>, 
-                        <Text>{car.rating}</Text>,
-                        <Text></Text>
-                    ]} />
+                    <View style={{marginVertical: 10}}>
+                        <Table>
+                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Col textStyle={{textAlign: 'center'}} data={[
+                                    'Year',
+                                    'Make',
+                                    'Model',
+                                    'Rating'    
+                                    ]}
+                                />
+                                <Col textStyle={{textAlign: 'center'}} data={[
+                                    car.year, 
+                                    car.make, 
+                                    car.model, 
+                                    car.rating
+                                    ]}
+                                />
+                            </View>
+                        </Table>
+                    </View>
                 )
             } else {
-                return ( <Row key={car._id} data={[
-                    <Text>{car.year}</Text>, 
-                    <Text>{car.make}</Text>, 
-                    <Text>{car.model}</Text>, 
-                    <Text>{car.rating}</Text>, 
-                    <View>
-                        <Button title="EDIT" onPress={() => this.getPutData(car, props.setValues)} />
-                        <Button title="SEE REPAIRS" onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} />
-                        <Button title="DELETE" onPress={() => this.callDeleteData(car._id)} />
+                return ( 
+                    <View style={{marginVertical: 10}}>
+                        <Table>
+                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Col textStyle={{textAlign: 'center'}} data={[
+                                    'Year',
+                                    'Make',
+                                    'Model',
+                                    'Rating'    
+                                    ]}
+                                />
+                                <Col textStyle={{textAlign: 'center'}} data={[
+                                    car.year, 
+                                    car.make, 
+                                    car.model, 
+                                    car.rating
+                                    ]}
+                                />
+                            </View>
+                            <View>
+                                <Row data={[
+                                        <Button title="EDIT" onPress={() => this.getPutData(car, props.setValues)} />,
+                                        <Button title="SEE REPAIRS" onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} />,
+                                        <Button title="DELETE" onPress={() => this.callDeleteData(car._id)} />
+                                    ]}
+                                />
+                            </View>
+                        </Table>
                     </View>
-                ]} />)
+                )
             }
         });
         if (this.state.shouldGetPostData) {
@@ -200,7 +261,7 @@ class CarsComponent extends Component {
         }
         
         return(
-            <ScrollView>
+            <View>
                 <Formik
                 initialValues = {{make: '', model: '', year: '', rating: ''}}
                 validationSchema={this.CarValidationSchema}
@@ -209,21 +270,23 @@ class CarsComponent extends Component {
                 }}
                 >
                 {props => (
-                <View>
-                    <Table style={this.tableStyles}>
-                        <Row style={this.rowColStyles} data={['Year', 'Make', 'Model', 'Rating', 'Actions']}/> 
-                        {this.getCarsDisplay(props)}
-                    </Table>
-                    {this.getNewCarButton(props.resetForm)}
-                </View>
+                    <View>
+                        <ScrollView 
+                            contentInsetAdjustmentBehavior="automatic"
+                            contentContainerStyle={{flexGrow:1, marginHorizontal: 15}}>
+                            {this.getCarsDisplay(props)}
+                            <View style={{height: 40}}></View>
+                        </ScrollView>
+                        {this.getNewCarButton(props.resetForm)}
+                    </View>
                 )}
                 </Formik>
                 {this.showRepairsForCar()}
-            </ScrollView>
+            </View>
       );
     }
 }
-  
+
 export default CarsComponent;
 
 

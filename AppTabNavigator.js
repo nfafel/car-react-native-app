@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-//import HomeComponent from './HomeComponent'
+import HomeComponent from './HomeComponent'
 import CarsComponent from './CarsComponent'
-//import RepairsComponent from './RepairsComponent'
+import RepairsComponent from './RepairsComponent'
 
 class HomeScreen extends Component {
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{color: 'black', fontSize: 25, fontWeight: 'bold'}}>Home</Text>
-        </View>
+        <HomeComponent />
       );
     }
 }
   
 class CarsScreen extends Component {
     render() {
-      return (
-        
-          
+      return ( 
         <CarsComponent />
-       
       );
     }
 }
@@ -30,18 +26,31 @@ class CarsScreen extends Component {
 class RepairsScreen extends Component {
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{color: 'black', fontSize: 25, fontWeight: 'bold'}}>Repairs</Text>
-        </View>
+        <RepairsComponent />
       );
     }
 }
   
 const TabNavigator = createBottomTabNavigator(
     {
-      Home: {screen: HomeScreen},
-      Cars: {screen: CarsScreen},
-      Repairs: {screen: RepairsScreen},
+      Home: {screen: HomeScreen,
+        navigationOptions: {
+            tabBarIcon: () => (
+                <Icon name="home" size={30} color="#900" />
+            )
+        }},
+      Cars: {screen: CarsScreen,
+        navigationOptions: {
+            tabBarIcon: () => (
+                <Icon name="car" size={30} color="#900" />
+            )
+        }},
+      Repairs: {screen: RepairsScreen,
+        navigationOptions: {
+            tabBarIcon: () => (
+                <Icon name="wrench" size={30} color="#900" />
+            )
+        }},
     },
     {
       tabBarOptions: {
@@ -49,7 +58,8 @@ const TabNavigator = createBottomTabNavigator(
           fontSize: 20,
           margin: 0,
           padding: 0
-        }
+        },
+        style: {height:60}
       }
     }
 );

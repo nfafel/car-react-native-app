@@ -28,7 +28,6 @@ class App extends Component {
     this.getVersionData()
       .then(res => this.setState({ version: res.version }))
       .catch(err => console.log(err));
-
   }
 
   getVersionData = async() => {
@@ -64,8 +63,10 @@ class App extends Component {
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-            <Header />
-            {this.getVersionText()}
+            <View style={{flex: 1, backgroundColor: 'powderblue', marginBottom: 10}} >
+              <Text style={styles.title}>Car Repair App</Text>
+              {this.getVersionText()}
+            </View>
           </ScrollView>
         </SafeAreaView>
         <AppContainer />
@@ -81,8 +82,11 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-  body: {
-    backgroundColor: Colors.white,
+  title: {
+    fontSize: 40, 
+    fontWeight: '600', 
+    color: Colors.black, 
+    textAlign: 'center'
   },
   version: {
     fontSize: 20, 

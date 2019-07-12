@@ -1,7 +1,5 @@
-import { Field, ErrorMessage } from 'formik';
 import React, {Component} from 'react';
 import { View, Text, Button, TextInput, Picker } from 'react-native';
-import { Formik } from 'formik';
 import { Row } from 'react-native-table-component';
 
 const queryFunctions = require('./queryFuncForCarsComponent');
@@ -65,7 +63,7 @@ class CarFormComponent extends Component {
 
     getModelOptions = (values, setFieldValue) => {
         if (values.make === "") {
-        return (<Picker.Item key="noMakeChosen" value="" label="Select a Model" />, <Picker.Item value="" label="Select a Make to see Car Models" />);
+            return (<Picker.Item key="noMakeChosen" value="" label="Select a Model" />, <Picker.Item value="" label="Select a Make to see Car Models" />);
         }
 
         if (this.state.newCarMake !== values.make) {
@@ -114,12 +112,12 @@ class CarFormComponent extends Component {
                 {this.getModelOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
             </Picker>,
             <View>
-            <TextInput key="ratingForm"
-                onChangeText={this.props.formikProps.handleChange('rating')}
-                value={""+this.props.formikProps.values.rating}
-                placeholder="Rating"
-                keyboardType='numeric'
-            />
+                <TextInput key="ratingForm"
+                    onChangeText={this.props.formikProps.handleChange('rating')}
+                    value={""+this.props.formikProps.values.rating}
+                    placeholder="Rating"
+                    keyboardType='numeric'
+                />
             </View>,
             <View key="formButtons" >
                 <Button onPress={this.props.cancel} title="CANCEL" />

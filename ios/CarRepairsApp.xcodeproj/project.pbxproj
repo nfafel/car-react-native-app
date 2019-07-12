@@ -142,6 +142,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				DE06E527BA454299A1EAF810 /* AppCenter-Config.plist */,
+				B46084929A5C4E2D9AC0695A /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -158,6 +159,14 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		B46084929A5C4E2D9AC0695A /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
