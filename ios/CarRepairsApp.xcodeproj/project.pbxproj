@@ -5,17 +5,38 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* CarRepairsAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarRepairsAppTests.m */; };
+		05E27052582C42F8870AF9F7 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB17B89E5C1B4D9E98814D3C /* Fontisto.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1A524A0FC41A43D49F6D941B /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45F56F3A2EDC430DBE7CFC4A /* Feather.ttf */; };
+		27D0CB39C6504BDAB6D0DC90 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 073951FF8F1D4A649D8C9748 /* EvilIcons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* CarRepairsAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarRepairsAppTests.m */; };
+		3AB0C31686AA433AA645CCEF /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B984F986E147DD9081638F /* MaterialCommunityIcons.ttf */; };
+		5045C992E0E8415D8A8446D3 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43DB14DE37BC4EBD9BB9E3E6 /* FontAwesome5_Solid.ttf */; };
+		5E36DA48FB094B24AE567EC4 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96301E5994BE44798AA51AB3 /* FontAwesome5_Regular.ttf */; };
+		5FF76C21917547FEB5545D0E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D2EAE4432C54BA2B601B334 /* SimpleLineIcons.ttf */; };
+		69CAAADC62CD48819F83E4D8 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4479AFE2E1C40D19C6726FA /* MaterialIcons.ttf */; };
+		7BF586615BEB15FB2A6CC621 /* libPods-CarRepairsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFAD5A0148BFF30145EFC1AB /* libPods-CarRepairsApp.a */; };
+		81DE889E2C924428B39762EA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AF8EDC2B3374B22981446D8 /* Octicons.ttf */; };
+		8963C3369923457C931E37AC /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2E0D5A598E442AC96135D28 /* Ionicons.ttf */; };
 		905E98725DBB4183B3B0DEAD /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE06E527BA454299A1EAF810 /* AppCenter-Config.plist */; };
+		91CA9C7AA32FF1E0DF1A40E9 /* libPods-CarRepairsApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 151F8AE221E53DD08C4348E4 /* libPods-CarRepairsApp-tvOS.a */; };
+		CD1DB2D7CAC44292A0B7C93C /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C00DF48082F4A7A8B4D77A4 /* FontAwesome5_Brands.ttf */; };
+		CED36DFCCD1E4687B6C23D66 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE58DD0B623C4A43BFBE326D /* Zocial.ttf */; };
+		DC43C01D675244B5AF67E45B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 589D5E6EB06F45DE99DAF5D1 /* FontAwesome.ttf */; };
+		E389793FA046F66B2829C00C /* libPods-CarRepairsApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C0E26085B172AB69C6E9C5 /* libPods-CarRepairsApp-tvOSTests.a */; };
+		E78F981288212FB02CA1A886 /* libPods-CarRepairsAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 280963B3ED23891F57EFBB9B /* libPods-CarRepairsAppTests.a */; };
+		EB0DCBA8CCAA4F98851644BA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98108B776E9E480BAFB95DF8 /* Entypo.ttf */; };
+		FA51138400D744C6B2C8AC3B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17495032022E477BA245B2A9 /* Foundation.ttf */; };
+		FAE4C3D69ABD423FA2FDA584 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C30A59E98C504A24BA4BF743 /* AntDesign.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +54,20 @@
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "CarRepairsApp-tvOS";
 		};
+		426BB99422DD09440028D63F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 426BB98F22DD09440028D63F /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		426BB99622DD09440028D63F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 426BB98F22DD09440028D63F /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +75,10 @@
 		00E356EE1AD99517003FC87E /* CarRepairsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarRepairsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CarRepairsAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarRepairsAppTests.m; sourceTree = "<group>"; };
+		073951FF8F1D4A649D8C9748 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		0C16E9DFFC373B530A8ECD86 /* Pods-CarRepairsAppTests.staging release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsAppTests.staging release.xcconfig"; path = "Target Support Files/Pods-CarRepairsAppTests/Pods-CarRepairsAppTests.staging release.xcconfig"; sourceTree = "<group>"; };
+		0C7A94FC4366B4B8407B5FBA /* Pods-CarRepairsApp-tvOS.staging release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOS.staging release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOS/Pods-CarRepairsApp-tvOS.staging release.xcconfig"; sourceTree = "<group>"; };
+		126C3AB003B3835E4AFAB38C /* Pods-CarRepairsAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsAppTests.release.xcconfig"; path = "Target Support Files/Pods-CarRepairsAppTests/Pods-CarRepairsAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CarRepairsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRepairsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CarRepairsApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CarRepairsApp/AppDelegate.m; sourceTree = "<group>"; };
@@ -47,11 +86,44 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CarRepairsApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CarRepairsApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CarRepairsApp/main.m; sourceTree = "<group>"; };
+		151F8AE221E53DD08C4348E4 /* libPods-CarRepairsApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarRepairsApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		17495032022E477BA245B2A9 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		1C00DF48082F4A7A8B4D77A4 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		1E2A23582350449C78BFAAD2 /* Pods-CarRepairsApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOSTests/Pods-CarRepairsApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		280963B3ED23891F57EFBB9B /* libPods-CarRepairsAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarRepairsAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF8EDC2B3374B22981446D8 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CarRepairsApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CarRepairsApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CarRepairsApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CarRepairsApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3208A3ACA41B44B6866E0FA0 /* Pods-CarRepairsApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOSTests/Pods-CarRepairsApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		35803A8B216D3CE3107C933E /* Pods-CarRepairsApp.staging debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp.staging debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp.staging debug.xcconfig"; sourceTree = "<group>"; };
+		426BB98F22DD09440028D63F /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		43DB14DE37BC4EBD9BB9E3E6 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		45F56F3A2EDC430DBE7CFC4A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		589D5E6EB06F45DE99DAF5D1 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		5D2EAE4432C54BA2B601B334 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		96301E5994BE44798AA51AB3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		98108B776E9E480BAFB95DF8 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		9FCC06B2F353DC2475C8C444 /* Pods-CarRepairsApp-tvOSTests.staging debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOSTests.staging debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOSTests/Pods-CarRepairsApp-tvOSTests.staging debug.xcconfig"; sourceTree = "<group>"; };
+		A0C0E26085B172AB69C6E9C5 /* libPods-CarRepairsApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarRepairsApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A88BCC29AEF08B85F7BDB702 /* Pods-CarRepairsApp.staging release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp.staging release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp.staging release.xcconfig"; sourceTree = "<group>"; };
+		B4B93D5F0B4AB6259A9820E6 /* Pods-CarRepairsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp.debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B51DA66B6DE3BC9D8EF0EA74 /* Pods-CarRepairsAppTests.staging debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsAppTests.staging debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsAppTests/Pods-CarRepairsAppTests.staging debug.xcconfig"; sourceTree = "<group>"; };
+		BE58DD0B623C4A43BFBE326D /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C30A59E98C504A24BA4BF743 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		C4B984F986E147DD9081638F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		CB17B89E5C1B4D9E98814D3C /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		CCBE7906A9A94CCD070BD084 /* Pods-CarRepairsAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsAppTests/Pods-CarRepairsAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DE06E527BA454299A1EAF810 /* AppCenter-Config.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "CarRepairsApp/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		DFAD5A0148BFF30145EFC1AB /* libPods-CarRepairsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarRepairsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2C915D6BE331DC67E022717 /* Pods-CarRepairsApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOS/Pods-CarRepairsApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E35D5986DD42B9C222BDBDAD /* Pods-CarRepairsApp-tvOS.staging debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOS.staging debug.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOS/Pods-CarRepairsApp-tvOS.staging debug.xcconfig"; sourceTree = "<group>"; };
+		EC7E95A17AD81F3FF31B1FC7 /* Pods-CarRepairsApp-tvOSTests.staging release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOSTests.staging release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOSTests/Pods-CarRepairsApp-tvOSTests.staging release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		DE06E527BA454299A1EAF810 /* AppCenter-Config.plist */ = {isa = PBXFileReference; name = "AppCenter-Config.plist"; path = "CarRepairsApp/AppCenter-Config.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		F2E0D5A598E442AC96135D28 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		F4479AFE2E1C40D19C6726FA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		F901883FE9831AE40C7CC2E0 /* Pods-CarRepairsApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp-tvOS/Pods-CarRepairsApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		FBC6AB46C7D95540428BE3A5 /* Pods-CarRepairsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRepairsApp.release.xcconfig"; path = "Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E78F981288212FB02CA1A886 /* libPods-CarRepairsAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF586615BEB15FB2A6CC621 /* libPods-CarRepairsApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CA9C7AA32FF1E0DF1A40E9 /* libPods-CarRepairsApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E389793FA046F66B2829C00C /* libPods-CarRepairsApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +179,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0D06820FC15637BAD77FECD0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B4B93D5F0B4AB6259A9820E6 /* Pods-CarRepairsApp.debug.xcconfig */,
+				35803A8B216D3CE3107C933E /* Pods-CarRepairsApp.staging debug.xcconfig */,
+				FBC6AB46C7D95540428BE3A5 /* Pods-CarRepairsApp.release.xcconfig */,
+				A88BCC29AEF08B85F7BDB702 /* Pods-CarRepairsApp.staging release.xcconfig */,
+				E2C915D6BE331DC67E022717 /* Pods-CarRepairsApp-tvOS.debug.xcconfig */,
+				E35D5986DD42B9C222BDBDAD /* Pods-CarRepairsApp-tvOS.staging debug.xcconfig */,
+				F901883FE9831AE40C7CC2E0 /* Pods-CarRepairsApp-tvOS.release.xcconfig */,
+				0C7A94FC4366B4B8407B5FBA /* Pods-CarRepairsApp-tvOS.staging release.xcconfig */,
+				1E2A23582350449C78BFAAD2 /* Pods-CarRepairsApp-tvOSTests.debug.xcconfig */,
+				9FCC06B2F353DC2475C8C444 /* Pods-CarRepairsApp-tvOSTests.staging debug.xcconfig */,
+				3208A3ACA41B44B6866E0FA0 /* Pods-CarRepairsApp-tvOSTests.release.xcconfig */,
+				EC7E95A17AD81F3FF31B1FC7 /* Pods-CarRepairsApp-tvOSTests.staging release.xcconfig */,
+				CCBE7906A9A94CCD070BD084 /* Pods-CarRepairsAppTests.debug.xcconfig */,
+				B51DA66B6DE3BC9D8EF0EA74 /* Pods-CarRepairsAppTests.staging debug.xcconfig */,
+				126C3AB003B3835E4AFAB38C /* Pods-CarRepairsAppTests.release.xcconfig */,
+				0C16E9DFFC373B530A8ECD86 /* Pods-CarRepairsAppTests.staging release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* CarRepairsApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,13 +222,27 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
+				DFAD5A0148BFF30145EFC1AB /* libPods-CarRepairsApp.a */,
+				151F8AE221E53DD08C4348E4 /* libPods-CarRepairsApp-tvOS.a */,
+				A0C0E26085B172AB69C6E9C5 /* libPods-CarRepairsApp-tvOSTests.a */,
+				280963B3ED23891F57EFBB9B /* libPods-CarRepairsAppTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		426BB99022DD09440028D63F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				426BB99522DD09440028D63F /* libRCTPushNotification.a */,
+				426BB99722DD09440028D63F /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				426BB98F22DD09440028D63F /* RCTPushNotification.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -143,6 +257,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				DE06E527BA454299A1EAF810 /* AppCenter-Config.plist */,
 				B46084929A5C4E2D9AC0695A /* Resources */,
+				0D06820FC15637BAD77FECD0 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -161,12 +276,27 @@
 			sourceTree = "<group>";
 		};
 		B46084929A5C4E2D9AC0695A /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
+				C30A59E98C504A24BA4BF743 /* AntDesign.ttf */,
+				98108B776E9E480BAFB95DF8 /* Entypo.ttf */,
+				073951FF8F1D4A649D8C9748 /* EvilIcons.ttf */,
+				45F56F3A2EDC430DBE7CFC4A /* Feather.ttf */,
+				589D5E6EB06F45DE99DAF5D1 /* FontAwesome.ttf */,
+				1C00DF48082F4A7A8B4D77A4 /* FontAwesome5_Brands.ttf */,
+				96301E5994BE44798AA51AB3 /* FontAwesome5_Regular.ttf */,
+				43DB14DE37BC4EBD9BB9E3E6 /* FontAwesome5_Solid.ttf */,
+				CB17B89E5C1B4D9E98814D3C /* Fontisto.ttf */,
+				17495032022E477BA245B2A9 /* Foundation.ttf */,
+				F2E0D5A598E442AC96135D28 /* Ionicons.ttf */,
+				C4B984F986E147DD9081638F /* MaterialCommunityIcons.ttf */,
+				F4479AFE2E1C40D19C6726FA /* MaterialIcons.ttf */,
+				2AF8EDC2B3374B22981446D8 /* Octicons.ttf */,
+				5D2EAE4432C54BA2B601B334 /* SimpleLineIcons.ttf */,
+				BE58DD0B623C4A43BFBE326D /* Zocial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -175,6 +305,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CarRepairsAppTests" */;
 			buildPhases = (
+				99BE85D8BDA4ED48E2879BFE /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -193,18 +324,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CarRepairsApp" */;
 			buildPhases = (
+				0D47E11B602868E6BEC300D4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				46136A45C1691DB8B13662EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CarRepairsApp;
-			productName = "CarRepairsApp";
+			productName = CarRepairsApp;
 			productReference = 13B07F961A680F5B00A75B9A /* CarRepairsApp.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -212,6 +345,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "CarRepairsApp-tvOS" */;
 			buildPhases = (
+				8A3C9DBE8AFC6234BC4B3652 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -231,6 +365,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "CarRepairsApp-tvOSTests" */;
 			buildPhases = (
+				A5617E0CCCF02AD1EEB26322 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -274,12 +409,19 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 426BB99022DD09440028D63F /* Products */;
+					ProjectRef = 426BB98F22DD09440028D63F /* RCTPushNotification.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* CarRepairsApp */,
@@ -289,6 +431,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		426BB99522DD09440028D63F /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 426BB99422DD09440028D63F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		426BB99722DD09440028D63F /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = 426BB99622DD09440028D63F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -305,6 +464,22 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				905E98725DBB4183B3B0DEAD /* AppCenter-Config.plist in Resources */,
+				FAE4C3D69ABD423FA2FDA584 /* AntDesign.ttf in Resources */,
+				EB0DCBA8CCAA4F98851644BA /* Entypo.ttf in Resources */,
+				27D0CB39C6504BDAB6D0DC90 /* EvilIcons.ttf in Resources */,
+				1A524A0FC41A43D49F6D941B /* Feather.ttf in Resources */,
+				DC43C01D675244B5AF67E45B /* FontAwesome.ttf in Resources */,
+				CD1DB2D7CAC44292A0B7C93C /* FontAwesome5_Brands.ttf in Resources */,
+				5E36DA48FB094B24AE567EC4 /* FontAwesome5_Regular.ttf in Resources */,
+				5045C992E0E8415D8A8446D3 /* FontAwesome5_Solid.ttf in Resources */,
+				05E27052582C42F8870AF9F7 /* Fontisto.ttf in Resources */,
+				FA51138400D744C6B2C8AC3B /* Foundation.ttf in Resources */,
+				8963C3369923457C931E37AC /* Ionicons.ttf in Resources */,
+				3AB0C31686AA433AA645CCEF /* MaterialCommunityIcons.ttf in Resources */,
+				69CAAADC62CD48819F83E4D8 /* MaterialIcons.ttf in Resources */,
+				81DE889E2C924428B39762EA /* Octicons.ttf in Resources */,
+				5FF76C21917547FEB5545D0E /* SimpleLineIcons.ttf in Resources */,
+				CED36DFCCD1E4687B6C23D66 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +513,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		0D47E11B602868E6BEC300D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarRepairsApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -353,6 +550,120 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		46136A45C1691DB8B13662EC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarRepairsApp/Pods-CarRepairsApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A3C9DBE8AFC6234BC4B3652 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarRepairsApp-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99BE85D8BDA4ED48E2879BFE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarRepairsAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5617E0CCCF02AD1EEB26322 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarRepairsApp-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -459,6 +770,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCBE7906A9A94CCD070BD084 /* Pods-CarRepairsAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -481,6 +793,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 126C3AB003B3835E4AFAB38C /* Pods-CarRepairsAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -500,6 +813,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4B93D5F0B4AB6259A9820E6 /* Pods-CarRepairsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -519,6 +833,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBC6AB46C7D95540428BE3A5 /* Pods-CarRepairsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -537,6 +852,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2C915D6BE331DC67E022717 /* Pods-CarRepairsApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -564,6 +880,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F901883FE9831AE40C7CC2E0 /* Pods-CarRepairsApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -591,6 +908,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E2A23582350449C78BFAAD2 /* Pods-CarRepairsApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -617,6 +935,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3208A3ACA41B44B6866E0FA0 /* Pods-CarRepairsApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -640,6 +959,301 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
+		};
+		426BB98222DCED790028D63F /* Staging Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SERVER_URL = "https://www.stagingserverurl.com";
+			};
+			name = "Staging Debug";
+		};
+		426BB98322DCED790028D63F /* Staging Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35803A8B216D3CE3107C933E /* Pods-CarRepairsApp.staging debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				INFOPLIST_FILE = CarRepairsApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = CarRepairsApp;
+				SERVER_URL = "";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Staging Debug";
+		};
+		426BB98422DCED790028D63F /* Staging Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B51DA66B6DE3BC9D8EF0EA74 /* Pods-CarRepairsAppTests.staging debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CarRepairsAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarRepairsApp.app/CarRepairsApp";
+			};
+			name = "Staging Debug";
+		};
+		426BB98522DCED790028D63F /* Staging Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E35D5986DD42B9C222BDBDAD /* Pods-CarRepairsApp-tvOS.staging debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "CarRepairsApp-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarRepairsApp-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = "Staging Debug";
+		};
+		426BB98622DCED790028D63F /* Staging Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FCC06B2F353DC2475C8C444 /* Pods-CarRepairsApp-tvOSTests.staging debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "CarRepairsApp-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarRepairsApp-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarRepairsApp-tvOS.app/CarRepairsApp-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = "Staging Debug";
+		};
+		426BB98722DCEDAF0028D63F /* Staging Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SERVER_URL = "https://www.stagingserverurl.com";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Staging Release";
+		};
+		426BB98822DCEDAF0028D63F /* Staging Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A88BCC29AEF08B85F7BDB702 /* Pods-CarRepairsApp.staging release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = CarRepairsApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = CarRepairsApp;
+				SERVER_URL = "";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Staging Release";
+		};
+		426BB98922DCEDAF0028D63F /* Staging Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C16E9DFFC373B530A8ECD86 /* Pods-CarRepairsAppTests.staging release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = CarRepairsAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarRepairsApp.app/CarRepairsApp";
+			};
+			name = "Staging Release";
+		};
+		426BB98A22DCEDAF0028D63F /* Staging Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C7A94FC4366B4B8407B5FBA /* Pods-CarRepairsApp-tvOS.staging release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "CarRepairsApp-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarRepairsApp-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = "Staging Release";
+		};
+		426BB98B22DCEDAF0028D63F /* Staging Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC7E95A17AD81F3FF31B1FC7 /* Pods-CarRepairsApp-tvOSTests.staging release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "CarRepairsApp-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarRepairsApp-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarRepairsApp-tvOS.app/CarRepairsApp-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = "Staging Release";
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -691,6 +1305,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SERVER_URL = "";
 			};
 			name = Debug;
 		};
@@ -736,6 +1351,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SERVER_URL = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -747,7 +1363,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
+				426BB98422DCED790028D63F /* Staging Debug */,
 				00E356F71AD99517003FC87E /* Release */,
+				426BB98922DCEDAF0028D63F /* Staging Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -756,7 +1374,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
+				426BB98322DCED790028D63F /* Staging Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				426BB98822DCEDAF0028D63F /* Staging Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -765,7 +1385,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
+				426BB98522DCED790028D63F /* Staging Debug */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
+				426BB98A22DCEDAF0028D63F /* Staging Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -774,7 +1396,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
+				426BB98622DCED790028D63F /* Staging Debug */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+				426BB98B22DCEDAF0028D63F /* Staging Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -783,7 +1407,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
+				426BB98222DCED790028D63F /* Staging Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				426BB98722DCEDAF0028D63F /* Staging Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

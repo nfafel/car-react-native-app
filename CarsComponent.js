@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 import RepairsByCarComponent from './RepairsByCarComponent'
 import CarFormComponent from './CarFormComponent'
 import { Table, Row, Col } from 'react-native-table-component';
+import { withNavigation } from "react-navigation";
 
 const queryFunctions = require('./queryFuncForCarsComponent')
 
@@ -28,10 +29,12 @@ class CarsComponent extends Component {
     }
     
     componentDidMount() {
-        
-        queryFunctions.getCarsData()
-            .then(res => this.setState({ cars: res.cars }))
-            .catch(err => console.log(err));
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            queryFunctions.getCarsData()
+                .then(res => this.setState({ cars: res.cars }))
+                .catch(err => console.log(err));
+        });
     }
   
     callDeleteData(carId) {
@@ -109,33 +112,26 @@ class CarsComponent extends Component {
     showRepairsForCar = () => {
         if (this.state.repairsForCar != null) {
             return (
-                
-                    <Modal 
-                        style={{
-                            backgroundColor: 'white',
-                            margin: 20,
-                            flex: 0.5,
-                            flexDirection: 'row',
-                            justifyContent: 'center'
-                          }}
-                        isVisible={this.state.modalVisible}
-                    >
-                        <View>
-                            <View style={{flex:1, flexDirection:'row', justifyContent: 'center'}}>
-                                <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
-                            </View>
-                            <View style={{flex:1, justifyContent: 'flex-end'}}>
-                                <Button 
-                                    style={{
-                                        justifyContent: 'flex-end',
-                                        }}
-                                    onPress={() => this.setState({modalVisible: false})}
-                                    title="Hide Repairs"
-                                />
-                            </View>
+                <Modal 
+                    style={{
+                        backgroundColor: 'white',
+                        margin: 15,
+                        flex: 0.7,
+                        }}
+                    isVisible={this.state.modalVisible}
+                >
+                    <View style={{flex: 1}}>
+                        <View style={{flex:0.9, justifyContent: 'center'}}>
+                            <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
                         </View>
-                    </Modal>
-                
+                        <View style={{flex:0.1, justifyContent: 'flex-end'}}>
+                            <Button 
+                                onPress={() => this.setState({modalVisible: false})}
+                                title="Hide Repairs"
+                            />
+                        </View>
+                    </View>
+                </Modal>
             );
         } 
     }
@@ -150,18 +146,10 @@ class CarsComponent extends Component {
         }
     }
   
-    tableStyles = {
-        
-    };
-
-    rowColStyles = {
-        
-    };
-  
     getCarsDisplay = (props) => {
         var carsData = this.state.cars.map((car) => {
             if (this.state.shouldGetPutData && car._id === this.state.carIdUpdate) {
-                return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
+                return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
                     <View style={{marginVertical: 10}}>
@@ -205,7 +193,7 @@ class CarsComponent extends Component {
                                     ]}
                                 />
                             </View>
-                            <View>
+                            <View >
                                 <Row data={[
                                         <Button title="EDIT" onPress={() => this.getPutData(car, props.setValues)} />,
                                         <Button title="SEE REPAIRS" onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} />,
@@ -219,13 +207,12 @@ class CarsComponent extends Component {
             }
         });
         if (this.state.shouldGetPostData) {
-            carsData.push(<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
+            carsData.push(<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
         }
-        return (carsData);
+        return (carsData.reverse());
     }
   
     handleCorrectSumbit = (values) => {
-        alert(values.year+"  "+values.make+"  "+values.model+"  "+values.rating);
         if (this.state.shouldGetPostData) {
             this.callPostData(values);
         } else {
@@ -287,6 +274,6 @@ class CarsComponent extends Component {
     }
 }
 
-export default CarsComponent;
+export default withNavigation(CarsComponent);
 
 

@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import { View, Text, Button, ScrollView} from 'react-native';
 import * as Yup from 'yup'
 import { Table, Row, Col } from 'react-native-table-component';
-
+import { withNavigation } from "react-navigation";
 
 const queryFunctions = require('./queryFuncForRepairsComponent');
 
@@ -34,27 +34,29 @@ class RepairsComponent extends Component {
       }
     }
     
-    async componentDidMount() {
-        try {
-            const carsResponse = await queryFunctions.getCarsData();
-            const cars = carsResponse.cars;
-
-            const repairsResponse = await queryFunctions.getRepairsData();
-            const repairs = repairsResponse.repairs;
-
-            var mergedRepairData = [];
-            for (var i=0; i< repairs.length; i++) {
-                var carForRepair = this.getCarForRepair(cars, repairs[i].car_id);
-                mergedRepairData.push(new RepairWithCar(carForRepair, repairs[i]))
+    componentDidMount() {
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", async() => {
+            try {
+                const carsResponse = await queryFunctions.getCarsData();
+                const cars = carsResponse.cars;
+    
+                const repairsResponse = await queryFunctions.getRepairsData();
+                const repairs = repairsResponse.repairs;
+    
+                var mergedRepairData = [];
+                for (var i=0; i< repairs.length; i++) {
+                    var carForRepair = this.getCarForRepair(cars, repairs[i].car_id);
+                    mergedRepairData.push(new RepairWithCar(carForRepair, repairs[i]))
+                }
+                this.setState({
+                    mergedRepairs: mergedRepairData, 
+                    cars:cars
+                });
+            } catch(e) {
+                console.error(e);
             }
-            this.setState({
-                mergedRepairs: mergedRepairData, 
-                cars:cars
-            });
-
-        } catch(e) {
-            console.error(e);
-        }
+        });
     }
 
     getCarForRepair = (allCars, carId) => {
@@ -155,7 +157,7 @@ class RepairsComponent extends Component {
     getRepairsDisplay = (props) => {
         var repairsDisplay = this.state.mergedRepairs.map((repair) => { 
             if (this.state.shouldGetPutData && repair._id === this.state.repairIdUpdate) {
-                return (<RepairFormComponent cars={this.state.cars} formikProps={props} formType={"update"} cancel={() => this.setState({shouldGetPutData: false})} /> );
+                return (<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} formType={"update"} cancel={() => this.setState({shouldGetPutData: false})} /> );
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
                     <View style={{marginVertical: 10}} >
@@ -220,9 +222,9 @@ class RepairsComponent extends Component {
             }
         });
         if (this.state.shouldGetPostData) {
-            repairsDisplay.push(<RepairFormComponent cars={this.state.cars} formikProps={props} formType={"new"} cancel={() => this.setState({shouldGetPostData: false})} />);
+            repairsDisplay.push(<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} formType={"new"} cancel={() => this.setState({shouldGetPostData: false})} />);
         }
-        return repairsDisplay;
+        return repairsDisplay.reverse();
     }
   
     handleCorrectSumbit = (values) => {
@@ -292,4 +294,4 @@ class RepairsComponent extends Component {
     }
   }
   
-  export default RepairsComponent;
+  export default withNavigation(RepairsComponent);

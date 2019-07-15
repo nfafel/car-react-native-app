@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, Button, TextInput, Picker } from 'react-native';
-import { Row } from 'react-native-table-component';
+import { Row, Col } from 'react-native-table-component';
+import Modal from "react-native-modal";
 
 const queryFunctions = require('./queryFuncForCarsComponent');
 
@@ -13,7 +14,8 @@ class CarFormComponent extends Component {
         allMakes: null,
         allModels: null,
         newCarYear: null,
-        newCarMake: null
+        newCarMake: null,
+        visible: false
       }
     }
 
@@ -92,39 +94,60 @@ class CarFormComponent extends Component {
     
 
     render() {
-        return (<Row key="newForm" data={[
-            <Picker key="yearForm"
-                onValueChange={this.props.formikProps.handleChange('year')}
-                selectedValue={this.props.formikProps.values.year}
-            >
-                {this.getYearOptions()}
-            </Picker>,
-            <Picker key="makeForm"
-                onValueChange={this.props.formikProps.handleChange('make')}
-                selectedValue={this.props.formikProps.values.make}
-            >
-                {this.getMakeOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
-            </Picker>,
-            <Picker key="modelForm"
-                onValueChange={this.props.formikProps.handleChange('model')}
-                selectedValue={this.props.formikProps.values.model}
-            >
-                {this.getModelOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
-            </Picker>,
-            <View>
-                <TextInput key="ratingForm"
-                    onChangeText={this.props.formikProps.handleChange('rating')}
-                    value={""+this.props.formikProps.values.rating}
-                    placeholder="Rating"
-                    keyboardType='numeric'
-                />
-            </View>,
-            <View key="formButtons" >
-                <Button onPress={this.props.cancel} title="CANCEL" />
-                <Button onPress={this.props.formikProps.handleSubmit} title={this.props.buttonText} />
-            </View>
-        ]} />)
-        
+        return (
+            <Modal 
+                style={{
+                    backgroundColor: 'white',
+                    margin: 20,
+                    flex: 1,
+                }}
+                isVisible={this.props.shouldGetPutData || this.props.shouldGetPostData}>
+                <View style={{flex:1,flexDirection: 'row', justifyContent: 'center' }}>
+                    <Col textStyle={{textAlign: 'center'}} data={[
+                        'Year',
+                        'Make', 
+                        'Model',
+                        'Rating'
+                    ]} />
+                    <Col key="newForm" data={[
+                        <Picker key="yearForm"
+                            onValueChange={this.props.formikProps.handleChange('year')}
+                            selectedValue={this.props.formikProps.values.year}
+                        >
+                            {this.getYearOptions()}
+                        </Picker>,
+                        <Picker key="makeForm"
+                            onValueChange={this.props.formikProps.handleChange('make')}
+                            selectedValue={this.props.formikProps.values.make}
+                        >
+                            {this.getMakeOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
+                        </Picker>,
+                        <Picker key="modelForm"
+                            onValueChange={this.props.formikProps.handleChange('model')}
+                            selectedValue={this.props.formikProps.values.model}
+                        >
+                            {this.getModelOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
+                        </Picker>,
+                        <View>
+                            <TextInput key="ratingForm"
+                                onChangeText={this.props.formikProps.handleChange('rating')}
+                                value={""+this.props.formikProps.values.rating}
+                                placeholder="Rating"
+                                keyboardType='numeric'
+                            />
+                        </View>
+                        ]}
+                    />
+                </View>
+                <View >
+                    <Row data={[
+                        <Button onPress={this.props.cancel} title="CANCEL" />,
+                        <Button onPress={this.props.formikProps.handleSubmit} title={this.props.buttonText} />
+                        ]}
+                    />
+                </View>
+            </Modal>
+        )  
     }
 }
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { View, Text, Button, TextInput, Picker } from 'react-native';
-import { Row } from 'react-native-table-component';
+import { Row, Col } from 'react-native-table-component';
 import DateTimePicker from "react-native-modal-datetime-picker";
+import Modal from "react-native-modal";
 
 class RepairFormComponent extends Component {
     constructor(props) {
@@ -33,114 +34,163 @@ class RepairFormComponent extends Component {
     }
 
     updateRepairForm = () => {
-        return ( <Row data={[
-            <Picker 
-                onValueChange={this.props.formikProps.handleChange('car_id')}
-                selectedValue={this.props.formikProps.values.car_id}
-            >
-                {this.carOptions()}
-            </Picker>,
-            <View>
-                <DateTimePicker
-                    onConfirm={this.props.formikProps.handleChange('date')}
-                    isVisible={this.state.datePickerVisible}
-                    onCancel={() => this.setState({datePickerVisible: false})}
-                    onHideAfterConfirm={() => this.setState({datePickerVisible: false})}
-                />
-                <Button title={this.getDateTitle()} onPress={() => this.setState({datePickerVisible: true})} />
-            </View>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('description')}
-                    value={""+this.props.formikProps.values.description}
-                    placeholder="Description"
-                />
-            </View>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('cost')}
-                    value={""+this.props.formikProps.values.cost}
-                    placeholder="Cost"
-                    keyboardType='numeric'
-                />
-            </View>,
-            <Picker 
-                onValueChange={this.props.formikProps.handleChange('progress')}
-                selectedValue={this.props.formikProps.values.progress}
-            >
-                <Picker.Item value="Ready" label="Ready" />
-                <Picker.Item value="In Progress" label="In Progress" />
-                <Picker.Item value="Completed" label="Completed" />
-            </Picker>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('technician')}
-                    value={""+this.props.formikProps.values.technician}
-                    placeholder="Technician"
-                />
-            </View>,
-            <View>
-                <Button onPress={this.props.cancel} title="CANCEL" />
-                <Button onPress={this.props.formikProps.handleSubmit} title="UPDATE" />
-            </View>
-            ]} /> 
+        return ( 
+            <Modal 
+                style={{
+                    backgroundColor: 'white',
+                    margin: 20,
+                    flex: 1,
+                }}
+                isVisible={this.props.visible}>
+                <View style={{flex:1,flexDirection: 'row', justifyContent: 'center' }}>
+                    <Col textStyle={{textAlign: 'center'}} data={[
+                            'Car',
+                            'Date',
+                            'Description',
+                            'Cost',
+                            'Progress',
+                            'Technician'
+                        ]} 
+                    />
+                    <Col data={[
+                        <Picker 
+                            onValueChange={this.props.formikProps.handleChange('car_id')}
+                            selectedValue={this.props.formikProps.values.car_id}
+                        >
+                            {this.carOptions()}
+                        </Picker>,
+                        <View>
+                            <DateTimePicker
+                                onConfirm={this.props.formikProps.handleChange('date')}
+                                isVisible={this.state.datePickerVisible}
+                                onCancel={() => this.setState({datePickerVisible: false})}
+                                onHideAfterConfirm={() => this.setState({datePickerVisible: false})}
+                            />
+                            <Button title={this.getDateTitle()} onPress={() => this.setState({datePickerVisible: true})} />
+                        </View>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('description')}
+                                value={""+this.props.formikProps.values.description}
+                                placeholder="Description"
+                            />
+                        </View>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('cost')}
+                                value={""+this.props.formikProps.values.cost}
+                                placeholder="Cost"
+                                keyboardType='numeric'
+                            />
+                        </View>,
+                        <Picker 
+                            onValueChange={this.props.formikProps.handleChange('progress')}
+                            selectedValue={this.props.formikProps.values.progress}
+                        >
+                            <Picker.Item value="Ready" label="Ready" />
+                            <Picker.Item value="In Progress" label="In Progress" />
+                            <Picker.Item value="Completed" label="Completed" />
+                        </Picker>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('technician')}
+                                value={""+this.props.formikProps.values.technician}
+                                placeholder="Technician"
+                            />
+                        </View>,
+                        ]} 
+                    /> 
+                </View>
+                <View>
+                    <Row data={[
+                        <Button onPress={this.props.cancel} title="CANCEL" />,
+                        <Button onPress={this.props.formikProps.handleSubmit} title="UPDATE" />
+                        ]}
+                    />
+                </View>
+            </Modal>
         )
     }
 
     newRepairForm = () => {
-        return (<Row data={[
-            <Picker 
-                onValueChange={this.props.formikProps.handleChange('car_id')}
-                selectedValue={this.props.formikProps.values.car_id}
-            >
-                {this.carOptions()}
-            </Picker>,
-            <View>
-                <DateTimePicker
-                    onConfirm={this.props.formikProps.handleChange('date')}
-                    isVisible={this.state.datePickerVisible}
-                    onCancel={() => this.setState({datePickerVisible: false})}
-                    onHideAfterConfirm={() => this.setState({datePickerVisible: false})}
-                />
-                <Button title={this.getDateTitle()} onPress={() => this.setState({datePickerVisible: true})} />
-            </View>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('description')}
-                    value={""+this.props.formikProps.values.description}
-                    placeholder="Description"
-                />
-            </View>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('cost')}
-                    value={""+this.props.formikProps.values.cost}
-                    placeholder="Cost"
-                    keyboardType='numeric'
-                />
-            </View>,
-            <Picker 
-                onValueChange={this.props.formikProps.handleChange('progress')}
-                selectedValue={this.props.formikProps.values.progress}
-            >
-                <Picker.Item value="" label="Select Progress" />
-                <Picker.Item value="Ready" label="Ready" />
-                <Picker.Item value="In Progress" label="In Progress" />
-                <Picker.Item value="Completed" label="Completed" />
-            </Picker>,
-            <View>
-                <TextInput
-                    onChangeText={this.props.formikProps.handleChange('technician')}
-                    value={""+this.props.formikProps.values.technician}
-                    placeholder="Technician"
-                />
-            </View>,
-            <View>
-                <Button onPress={this.props.cancel} title="CANCEL" />
-                <Button onPress={this.props.formikProps.handleSubmit} title="Submit" />
-            </View>
-            ]} /> 
-    )}
+        return (
+            <Modal 
+                style={{
+                    backgroundColor: 'white',
+                    margin: 20,
+                    hight: 1,
+                }}
+                isVisible={this.props.visible}>
+                <View style={{flex:1,flexDirection: 'row', justifyContent: 'center' }}>
+                    <Col textStyle={{textAlign: 'center'}} data={[
+                            'Car',
+                            'Date',
+                            'Description',
+                            'Cost',
+                            'Progress',
+                            'Technician'
+                        ]} 
+                    />
+                    <Col data={[
+                        <Picker 
+                            onValueChange={this.props.formikProps.handleChange('car_id')}
+                            selectedValue={this.props.formikProps.values.car_id}
+                        >
+                            {this.carOptions()}
+                        </Picker>,
+                        <View>
+                            <DateTimePicker
+                                onConfirm={this.props.formikProps.handleChange('date')}
+                                isVisible={this.state.datePickerVisible}
+                                onCancel={() => this.setState({datePickerVisible: false})}
+                                onHideAfterConfirm={() => this.setState({datePickerVisible: false})}
+                            />
+                            <Button title={this.getDateTitle()} onPress={() => this.setState({datePickerVisible: true})} />
+                        </View>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('description')}
+                                value={""+this.props.formikProps.values.description}
+                                placeholder="Description"
+                            />
+                        </View>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('cost')}
+                                value={""+this.props.formikProps.values.cost}
+                                placeholder="Cost"
+                                keyboardType='numeric'
+                            />
+                        </View>,
+                        <Picker 
+                            onValueChange={this.props.formikProps.handleChange('progress')}
+                            selectedValue={this.props.formikProps.values.progress}
+                        >
+                            <Picker.Item value="" label="Select Progress" />
+                            <Picker.Item value="Ready" label="Ready" />
+                            <Picker.Item value="In Progress" label="In Progress" />
+                            <Picker.Item value="Completed" label="Completed" />
+                        </Picker>,
+                        <View>
+                            <TextInput
+                                onChangeText={this.props.formikProps.handleChange('technician')}
+                                value={""+this.props.formikProps.values.technician}
+                                placeholder="Technician"
+                            />
+                        </View>,
+                        ]} 
+                    /> 
+                </View>
+                <View>
+                    <Row data={[
+                        <Button onPress={this.props.cancel} title="CANCEL" />,
+                        <Button onPress={this.props.formikProps.handleSubmit} title="SUBMIT" />
+                        ]}
+                    />
+                </View>
+            </Modal>
+        )
+    }
 
     render() {
 

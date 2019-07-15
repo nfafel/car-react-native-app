@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, Button, ScrollView, TextInput, StyleSheet } from 'react-native';
-import { Table, Row } from 'react-native-table-component';
+import { Table, Row, Col } from 'react-native-table-component';
 
 class RepairsByCarComponent extends Component {
 
@@ -8,13 +8,27 @@ class RepairsByCarComponent extends Component {
         var repairsDisplay;
         repairsDisplay = this.props.repairsForCar.map((repair) => { 
             return (
-                <Row textStyle={{textAlign: 'center'}} data={[
-                    repair.date.split('T', 1),
-                    repair.description,
-                    repair.cost,
-                    repair.progress,
-                    repair.technician]}
-                />
+                <View style={{marginVertical: 10}}>
+                    <Table>
+                        <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Col textStyle={{textAlign: 'center'}} data={[
+                            'Date',
+                            'Decription',
+                            'Cost',
+                            'Progress',
+                            'Technician'
+                            ]}
+                        />
+                        <Col textStyle={{textAlign: 'center'}} data={[
+                            repair.date.split('T', 1),
+                            repair.description,
+                            repair.cost,
+                            repair.progress,
+                            repair.technician]}
+                        />
+                        </View>
+                    </Table>
+                </View>
             )
         });
         return repairsDisplay;
@@ -25,20 +39,12 @@ class RepairsByCarComponent extends Component {
             return (<Text>No Repairs Recorded for the {this.props.repairCarYear} {this.props.repairCarMake} {this.props.repairCarModel}</Text>);
         }
         return(
-            <View>
-                <Text>Repairs for the {this.props.repairCarYear} {this.props.repairCarMake} {this.props.repairCarModel}</Text>
-                <Table>
-                    <Row textStyle={{textAlign: 'center'}} data={[
-                        'Date',
-                        'Decription',
-                        'Cost',
-                        'Progress',
-                        'Technician'
-                        ]}
-                    />
-                    {this.getRepairTableRows()}
-                </Table>
-            </View>
+            <ScrollView>
+                <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Repairs for the {this.props.repairCarYear} {this.props.repairCarMake} {this.props.repairCarModel}</Text>
+                </View>
+                {this.getRepairTableRows()}
+            </ScrollView>
         );
     }
   }

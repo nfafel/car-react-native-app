@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Table, Row, Col } from 'react-native-table-component';
+import { withNavigation } from "react-navigation";
 
 const queryFunctions = require('./queryFuncForRepairsComponent')
 
@@ -14,13 +15,16 @@ class HomeComponent extends Component {
     }
     
     componentDidMount() {
-        queryFunctions.getRepairsData()
-            .then(res => this.setState({ repairs: res.repairs }))
-            .catch(err => console.log(err)); 
-            
-        queryFunctions.getCarsData()
-            .then(res => this.setState({ cars: res.cars }))
-            .catch(err => console.log(err));
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            queryFunctions.getRepairsData()
+                .then(res => this.setState({ repairs: res.repairs }))
+                .catch(err => console.log(err)); 
+
+            queryFunctions.getCarsData()
+                .then(res => this.setState({ cars: res.cars }))
+                .catch(err => console.log(err));
+        });
     }
 
     tableStyles = {
@@ -37,14 +41,6 @@ class HomeComponent extends Component {
                 return this.state.cars[i];
             }
         }
-    }
-
-    reverseRepairsDisplay = (repairsDisplay) => {
-        var reversedRepairsDisplay = [];
-        for (var i=repairsDisplay.length-1; i>=0; i--) {
-            reversedRepairsDisplay.push(repairsDisplay[i]);
-        }
-        return reversedRepairsDisplay;
     }
 
     getRepairsDisplay = () => {
@@ -83,8 +79,7 @@ class HomeComponent extends Component {
                 )
             }
         }
-        var formattedRepairsDisplay = this.reverseRepairsDisplay(repairsDisplay);
-        return formattedRepairsDisplay;
+        return repairsDisplay.reverse();
     }
     
     render() {
@@ -107,4 +102,4 @@ class HomeComponent extends Component {
     }
   }
   
-  export default HomeComponent;
+  export default withNavigation(HomeComponent);
