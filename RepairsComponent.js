@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import RepairFormComponent from './RepairFormComponent'
 
 import React, {Component} from 'react';
-import { View, Text, Button, ScrollView} from 'react-native';
+import { View, Text, Button, ScrollView, TouchableOpacity} from 'react-native';
 import * as Yup from 'yup'
 import { Table, Row, Col } from 'react-native-table-component';
 import { withNavigation } from "react-navigation";
@@ -157,31 +157,17 @@ class RepairsComponent extends Component {
     getRepairsDisplay = (props) => {
         var repairsDisplay = this.state.mergedRepairs.map((repair) => { 
             if (this.state.shouldGetPutData && repair._id === this.state.repairIdUpdate) {
-                return (<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} formType={"update"} cancel={() => this.setState({shouldGetPutData: false})} /> );
+                return (<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} submitText={"UPDATE"} cancel={() => this.setState({shouldGetPutData: false})} /> );
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
                     <View style={{marginVertical: 10}} >
                         <Table>
-                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                        'Car',
-                                        'Date Admitted',
-                                        'Description',
-                                        'Cost',
-                                        'Progress',
-                                        'Technician'
-                                    ]} 
-                                /> 
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                        repair.car.year +" "+ repair.car.make +" "+ repair.car.model,
-                                        repair.date.split('T', 1),
-                                        repair.description,
-                                        repair.cost,
-                                        repair.progress,
-                                        repair.technician,
-                                    ]} 
-                                />
-                            </View>
+                            <Row textStyle={{textAlign: 'center'}} data={['Car', repair.car.year +" "+ repair.car.make +" "+ repair.car.model]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Date Admitted', repair.date.split('T', 1)]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Description', repair.description]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Cost', repair.cost]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Progress', repair.progress]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Technician', repair.technician]} />
                         </Table>
                     </View>
                 )
@@ -189,40 +175,28 @@ class RepairsComponent extends Component {
                 return (
                     <View style={{marginVertical: 10}} >
                         <Table>
-                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                        'Car',
-                                        'Date Admitted',
-                                        'Description',
-                                        'Cost',
-                                        'Progress',
-                                        'Technician'
-                                    ]} 
-                                /> 
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                        repair.car.year +" "+ repair.car.make +" "+ repair.car.model,
-                                        repair.date.split('T', 1),
-                                        repair.description,
-                                        repair.cost,
-                                        repair.progress,
-                                        repair.technician,
-                                    ]} 
-                                />
-                            </View>
-                            <View>
-                                <Row data={[
-                                    <Button title="EDIT" onPress={() => this.getPutData(repair, props.setValues)} />,
-                                    <Button title="DELETE" onPress={() => this.callDeleteData(repair._id)} />
-                                    ]}
-                                />
-                            </View>
+                            <Row textStyle={{textAlign: 'center'}} data={['Car', repair.car.year +" "+ repair.car.make +" "+ repair.car.model]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Date Admitted', repair.date.split('T', 1)]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Description', repair.description]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Cost', repair.cost]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Progress', repair.progress]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Technician', repair.technician]} />
+                            <Row data={[
+                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(repair, props.setValues)} >
+                                    <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
+                                </TouchableOpacity>,
+                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(repair._id)} >
+                                    <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
+                                </TouchableOpacity>
+                                ]}
+                            />
                         </Table>
                     </View>
                 )
             }
         });
         if (this.state.shouldGetPostData) {
-            repairsDisplay.push(<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} formType={"new"} cancel={() => this.setState({shouldGetPostData: false})} />);
+            repairsDisplay.push(<RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} submitText={"SUBMIT"} cancel={() => this.setState({shouldGetPostData: false})} />);
         }
         return repairsDisplay.reverse();
     }
@@ -257,7 +231,9 @@ class RepairsComponent extends Component {
         if (!(this.state.shouldGetPostData || this.state.shouldGetPutData)) {
             return (
                 <View style={{position: 'absolute', bottom: 5, left:0, right:0, marginHorizontal: 20 }} >
-                    <Button style={{flex:1}} title="NEW REPAIR" onPress={() => this.getPostData(resetForm)} />
+                    <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPostData(resetForm)} >
+                        <Text style={{color: 'white', fontSize: 22}}>NEW REPAIR</Text>
+                    </TouchableOpacity>
                 </View>
             )
         }

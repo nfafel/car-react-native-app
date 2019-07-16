@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Table, Row, Col } from 'react-native-table-component';
+import { Table, Row, Col, Rows } from 'react-native-table-component';
 import { withNavigation } from "react-navigation";
 
 const queryFunctions = require('./queryFuncForRepairsComponent')
@@ -54,26 +54,12 @@ class HomeComponent extends Component {
                 repairsDisplay.push(
                     <View style={{marginVertical: 10}}>
                         <Table>
-                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    'Car',
-                                    'Date Admitted',
-                                    'Description',
-                                    'Cost',
-                                    'Progress',
-                                    'Technician'
-                                    ]}
-                                />
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    carRepaired.year +" "+ carRepaired.make +" "+ carRepaired.model,
-                                    repair.date.split('T', 1),
-                                    repair.description,
-                                    repair.cost,
-                                    repair.progress,
-                                    repair.technician
-                                    ]}
-                                />
-                            </View>
+                            <Row style={{backgroundColor:'#b2b2b8'}} textStyle={{textAlign: 'center'}} data={['Car', carRepaired.year +" "+ carRepaired.make +" "+ carRepaired.model]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Date Admitted', repair.date.split('T', 1)]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Description', repair.description]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Cost', repair.cost]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Progress', repair.progress]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Technician', repair.technician]} />
                         </Table>
                     </View>
                 )

@@ -125,7 +125,7 @@ class CarsComponent extends Component {
                             <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
                         </View>
                         <View style={{flex:0.1, justifyContent: 'flex-end'}}>
-                            <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setState({modalVisible: false})}>
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setState({modalVisible: false})}>
                                 <Text style={{color: 'white', fontSize: 19}}>Hide Repairs</Text>
                             </TouchableOpacity>
                         </View>
@@ -139,7 +139,7 @@ class CarsComponent extends Component {
         if (!(this.state.shouldGetPutData || this.state.shouldGetPostData)) {
             return (
                 <View style={{position: 'absolute', bottom: 5, left:0, right:0, marginHorizontal: 20 }} >
-                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPostData(resetForm)} >
+                    <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPostData(resetForm)} >
                         <Text style={{color: 'white', fontSize: 22}}>NEW CAR</Text>
                     </TouchableOpacity>
                 </View>
@@ -155,22 +155,10 @@ class CarsComponent extends Component {
                 return (
                     <View style={{marginVertical: 10}}>
                         <Table>
-                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    'Year',
-                                    'Make',
-                                    'Model',
-                                    'Rating'    
-                                    ]}
-                                />
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    car.year, 
-                                    car.make, 
-                                    car.model, 
-                                    car.rating
-                                    ]}
-                                />
-                            </View>
+                            <Row textStyle={{textAlign: 'center'}} data={['Year', car.year]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Make', car.make]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Model', car.model]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Rating', car.rating]} />
                         </Table>
                     </View>
                 )
@@ -178,36 +166,22 @@ class CarsComponent extends Component {
                 return ( 
                     <View style={{marginVertical: 10}}>
                         <Table>
-                            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    'Year',
-                                    'Make',
-                                    'Model',
-                                    'Rating'    
-                                    ]}
-                                />
-                                <Col textStyle={{textAlign: 'center'}} data={[
-                                    car.year, 
-                                    car.make, 
-                                    car.model, 
-                                    car.rating
-                                    ]}
-                                />
-                            </View>
-                            <View >
-                                <Row data={[
-                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
-                                        <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
-                                    </TouchableOpacity>,
-                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
-                                        <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
-                                    </TouchableOpacity>,
-                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
-                                        <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
-                                    </TouchableOpacity>
-                                    ]}
-                                />
-                            </View>
+                            <Row textStyle={{textAlign: 'center'}} data={['Year', car.year]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Make', car.make]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Model', car.model]} />
+                            <Row textStyle={{textAlign: 'center'}} data={['Rating', car.rating]} />
+                            <Row data={[
+                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
+                                    <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
+                                </TouchableOpacity>,
+                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
+                                    <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
+                                </TouchableOpacity>,
+                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
+                                    <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
+                                </TouchableOpacity>
+                                ]}
+                            />
                         </Table>
                     </View>
                 )
