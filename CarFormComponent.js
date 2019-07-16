@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, Button, TextInput, Picker } from 'react-native';
+import { View, Text, Button, TextInput, Picker, TouchableOpacity } from 'react-native';
 import { Row, Col } from 'react-native-table-component';
 import Modal from "react-native-modal";
 
@@ -141,8 +141,12 @@ class CarFormComponent extends Component {
                 </View>
                 <View >
                     <Row data={[
-                        <Button onPress={this.props.cancel} title="CANCEL" />,
-                        <Button onPress={this.props.formikProps.handleSubmit} title={this.props.buttonText} />
+                        <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={this.props.cancel}>
+                            <Text style={{color: 'white', fontSize: 19}}>CANCEL</Text>
+                        </TouchableOpacity>,
+                        <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={this.props.formikProps.handleSubmit} >
+                            <Text style={{color: 'white', fontSize: 19}}>{this.props.buttonText}</Text>
+                        </TouchableOpacity>
                         ]}
                     />
                 </View>

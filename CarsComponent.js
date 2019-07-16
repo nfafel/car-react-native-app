@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, Button, ScrollView, Overlay} from 'react-native';
+import { View, Text, Button, ScrollView, TouchableOpacity} from 'react-native';
 import Modal from "react-native-modal";
 import { Formik } from 'formik';
 import * as Yup from 'yup'
@@ -125,10 +125,9 @@ class CarsComponent extends Component {
                             <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
                         </View>
                         <View style={{flex:0.1, justifyContent: 'flex-end'}}>
-                            <Button 
-                                onPress={() => this.setState({modalVisible: false})}
-                                title="Hide Repairs"
-                            />
+                            <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setState({modalVisible: false})}>
+                                <Text style={{color: 'white', fontSize: 19}}>Hide Repairs</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
@@ -140,7 +139,9 @@ class CarsComponent extends Component {
         if (!(this.state.shouldGetPutData || this.state.shouldGetPostData)) {
             return (
                 <View style={{position: 'absolute', bottom: 5, left:0, right:0, marginHorizontal: 20 }} >
-                    <Button style={{flex:1}} title="NEW CAR" onPress={() => this.getPostData(resetForm)} />
+                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPostData(resetForm)} >
+                        <Text style={{color: 'white', fontSize: 22}}>NEW CAR</Text>
+                    </TouchableOpacity>
                 </View>
             )
         }
@@ -195,9 +196,15 @@ class CarsComponent extends Component {
                             </View>
                             <View >
                                 <Row data={[
-                                        <Button title="EDIT" onPress={() => this.getPutData(car, props.setValues)} />,
-                                        <Button title="SEE REPAIRS" onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} />,
-                                        <Button title="DELETE" onPress={() => this.callDeleteData(car._id)} />
+                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
+                                        <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
+                                    </TouchableOpacity>,
+                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
+                                        <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
+                                    </TouchableOpacity>,
+                                    <TouchableOpacity style={{backgroundColor: 'blue', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
+                                        <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
+                                    </TouchableOpacity>
                                     ]}
                                 />
                             </View>

@@ -199,7 +199,6 @@
 				126C3AB003B3835E4AFAB38C /* Pods-CarRepairsAppTests.release.xcconfig */,
 				0C16E9DFFC373B530A8ECD86 /* Pods-CarRepairsAppTests.staging release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -392,6 +391,10 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 4T23955362;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -816,8 +819,11 @@
 			baseConfigurationReference = B4B93D5F0B4AB6259A9820E6 /* Pods-CarRepairsApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 4T23955362;
 				INFOPLIST_FILE = CarRepairsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -827,6 +833,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarRepairsApp;
+				PROVISIONING_PROFILE_SPECIFIER = nfafelProfile3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -836,7 +843,10 @@
 			baseConfigurationReference = FBC6AB46C7D95540428BE3A5 /* Pods-CarRepairsApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4T23955362;
 				INFOPLIST_FILE = CarRepairsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -846,6 +856,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarRepairsApp;
+				PROVISIONING_PROFILE_SPECIFIER = nfafelProfile3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1019,8 +1030,11 @@
 			baseConfigurationReference = 35803A8B216D3CE3107C933E /* Pods-CarRepairsApp.staging debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 4T23955362;
 				INFOPLIST_FILE = CarRepairsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1030,6 +1044,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarRepairsApp;
+				PROVISIONING_PROFILE_SPECIFIER = nfafelProfile3;
 				SERVER_URL = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1165,7 +1180,10 @@
 			baseConfigurationReference = A88BCC29AEF08B85F7BDB702 /* Pods-CarRepairsApp.staging release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4T23955362;
 				INFOPLIST_FILE = CarRepairsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1175,6 +1193,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarRepairsApp;
+				PROVISIONING_PROFILE_SPECIFIER = nfafelProfile3;
 				SERVER_URL = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
