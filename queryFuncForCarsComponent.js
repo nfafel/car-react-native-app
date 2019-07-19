@@ -15,7 +15,7 @@ exports.getCarById = async(carId) => {
   if (response.status !== 200) {
     throw Error(body) 
   }
-  return body;
+  return body; 
 };
 
 exports.deleteData = async(carId) => {
