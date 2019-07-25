@@ -5,7 +5,7 @@ exports.getCarsData = async() => {
     if (response.status !== 200) {
       throw Error(body) 
     }
-    return body;
+    return body.cars;
 };
 
 exports.getCarById = async(carId) => {
@@ -15,7 +15,7 @@ exports.getCarById = async(carId) => {
   if (response.status !== 200) {
     throw Error(body) 
   }
-  return body; 
+  return body.car; 
 };
 
 exports.deleteData = async(carId) => {
@@ -27,7 +27,7 @@ exports.deleteData = async(carId) => {
   if (response.status !== 200) {
       throw Error(body) 
   }
-  return body;
+  return body.cars;
 }
 
 exports.deleteRepairsWithCar = async(carId) => {
@@ -39,7 +39,7 @@ exports.deleteRepairsWithCar = async(carId) => {
   if (response.status !== 200) {
       throw Error(body) 
   }
-  return body;
+  return body.cars;
 }
 
 exports.putData = async(carId, values) => {
@@ -61,7 +61,7 @@ exports.putData = async(carId, values) => {
     if (response.status !== 200) {
       throw Error(body) 
     }
-    return body;
+    return body.cars;
 }
 
 exports.postData = async(values) => {
@@ -83,7 +83,7 @@ exports.postData = async(values) => {
     if (response.status !== 200) {
       throw Error(body) 
     }
-    return body;
+    return body.cars;
 }
 
 exports.getRepairsForCar = async(repairsForCarId) => {
@@ -93,7 +93,7 @@ exports.getRepairsForCar = async(repairsForCarId) => {
     if (response.status !== 200) {
         throw Error(body);
     }
-    return body;
+    return body.repairsForCar;
 };
 
 exports.getAllCarYears = async() => {
@@ -103,7 +103,7 @@ exports.getAllCarYears = async() => {
   if (response.status !== 200) {
     throw Error(body) 
   }
-  return body;
+  return body.Years;
 };
 
 exports.getAllCarMakes = async(year) => {
@@ -113,7 +113,7 @@ exports.getAllCarMakes = async(year) => {
   if (response.status !== 200) {
     throw Error(body) 
   }
-  return body;
+  return body.Makes;
 };
 
 exports.getAllCarModels = async(make, year) => {
@@ -123,5 +123,5 @@ exports.getAllCarModels = async(make, year) => {
   if (response.status !== 200) {
     throw Error(body) 
   }
-  return body;
+  return body.Models;
 };

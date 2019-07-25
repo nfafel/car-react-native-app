@@ -6,6 +6,7 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -13,14 +14,19 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import AppContainer from './AppTabNavigator';
+import RestAppContainer from './RestAppTabNavigator';
+import GraphQLAppContainer from './GraphQLAppTabNavigator';
 import { thisExpression } from '@babel/types';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { MenuProvider, MenuTrigger, Menu, MenuOptions, MenuOption } from 'react-native-popup-menu';
 
 class App extends Component {
   constructor(props) {
     super(props) 
     this.state = {
-      version: null
+      version: null,
+      appContainer: RestAppContainer,
+      queryType: "rest"
     }
   }
 
@@ -43,9 +49,9 @@ class App extends Component {
   getVersionText = () => {
     if (this.state.version == null) {
       return (
-      <View style={{alignSelf: 'center'}}>
-        <Text style={styles.version}>Loading...</Text>
-      </View>
+        <View style={{alignSelf: 'center'}}>
+          <Text style={styles.version}>Loading...</Text>
+        </View>
       )
     } 
     return (
@@ -56,20 +62,42 @@ class App extends Component {
   }
 
   render () { 
+    var restBackground, graphqlBackground;
+    if (this.state.queryType == "rest") {
+      restBackground = "cyan"
+      graphqlBackground = "white"
+    } else {
+      restBackground = "white"
+      graphqlBackground = "cyan"
+    }
+
     return (
       <Fragment>
+        <MenuProvider>
+
         <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <View style={{flex: 1, backgroundColor: 'powderblue', marginBottom: 10}} >
-              <Text style={styles.title}>Car Repair App</Text>
-              {this.getVersionText()}
+        <SafeAreaView style={{flex: 1}}>
+            <View style={{backgroundColor: 'powderblue', marginBottom: 10}} >
+                <View>
+                  <Text style={styles.title}>Car Repair App</Text>
+                  {this.getVersionText()}
+                </View>
+                <View style={{position: 'absolute', right: 10, top: 8}}>
+                  <Menu>
+                    <MenuTrigger>
+                      <Icon name="ellipsis-v" size={25} color="#6e737a" />
+                    </MenuTrigger>
+                    <MenuOptions>
+                      <MenuOption style={{backgroundColor: restBackground}} text="REST" onSelect={() => this.setState({appContainer: RestAppContainer, queryType: "rest"})} />
+                      <MenuOption style={{backgroundColor: graphqlBackground}} text="GraphQL" onSelect={() => this.setState({appContainer: GraphQLAppContainer, queryType: "graphql"})} />
+                    </MenuOptions>
+                  </Menu>
+                </View>
             </View>
-          </ScrollView>
+            <this.state.appContainer queryType={this.state.queryType} />
         </SafeAreaView>
-        <AppContainer />
+
+        </MenuProvider>
       </Fragment>
     );
 

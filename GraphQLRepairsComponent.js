@@ -8,19 +8,8 @@ import * as Yup from 'yup'
 import { Table, Row, Col } from 'react-native-table-component';
 import { withNavigation } from "react-navigation";
 
-const queryFunctions = require('./queryFuncForRepairsComponent');
-
-class RepairWithCar {
-    constructor(car, repair) {
-        this.car = car;
-        this._id = repair._id;
-        this.description = repair.description;
-        this.cost = repair.cost;
-        this.date = repair.date;
-        this.progress = repair.progress;
-        this.technician = repair.technician;
-    }
-}
+const queryFunctions = require('./graphQLQueriesForRepairs');
+const queryFunctionsForCars = require('./graphQLQueriesForCars');
 
 class RepairsComponent extends Component {
     constructor(props){
@@ -37,56 +26,26 @@ class RepairsComponent extends Component {
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", async() => {
-            try {
-                const carsResponse = await queryFunctions.getCarsData();
-                const cars = carsResponse.cars;
-    
-                const repairsResponse = await queryFunctions.getRepairsData();
-                const repairs = repairsResponse.repairs;
-    
-                var mergedRepairData = [];
-                for (var i=0; i< repairs.length; i++) {
-                    var carForRepair = this.getCarForRepair(cars, repairs[i].car_id);
-                    mergedRepairData.push(new RepairWithCar(carForRepair, repairs[i]))
-                }
-                this.setState({
-                    mergedRepairs: mergedRepairData, 
-                    cars:cars
-                });
-            } catch(e) {
-                console.error(e);
-            }
+            queryFunctions.getRepairsData()
+                .then(res => this.setState({mergedRepairs: res}) )
+                .catch(err => console.log(err))
         });
-    }
-
-    getCarForRepair = (allCars, carId) => {
-        for (var i = 0; i<allCars.length; i++) {
-            if (allCars[i]._id === carId) {
-                return allCars[i];
-            }
-        }
     }
     
     callDeleteData(repairId) {
         queryFunctions.deleteData(repairId)
-            .then(res => {
-                var mergedRepairData = [];
-                for (var i=0; i< res.repairs.length; i++) {
-                    var carForRepair = this.getCarForRepair(this.state.cars, res.repairs[i].car_id);
-                    mergedRepairData.push(new RepairWithCar(carForRepair, res.repairs[i]))
-                }
-                this.setState({
-                    mergedRepairs: mergedRepairData
-                });
-            })
+            .then(res => this.setState({mergedRepairs: res}) )
             .catch(err => console.log(err));
     }
   
     getPutData(repair, setValues) {
-        this.setState({
-            shouldGetPutData: true,
-            repairIdUpdate: repair._id
-        });
+        queryFunctionsForCars.getCarsData()
+            .then(res => this.setState({
+                cars: res,
+                shouldGetPutData: true,
+                repairIdUpdate: repair._id
+            }))
+            .catch(err => console.log(err))
         setValues({
             car_id: repair.car._id,
             description: repair.description,
@@ -99,60 +58,39 @@ class RepairsComponent extends Component {
   
     callPutData(repairId, values) {
         queryFunctions.putData(repairId, values)
-            .then(res => {
-                var mergedRepairData = [];
-                for (var i=0; i< res.repairs.length; i++) {
-                    var carForRepair = this.getCarForRepair(this.state.cars, res.repairs[i].car_id);
-                    mergedRepairData.push(new RepairWithCar(carForRepair, res.repairs[i]))
-                }
-                this.setState({
-                    mergedRepairs: mergedRepairData, 
+            .then(res => this.setState({
+                    mergedRepairs: res, 
                     shouldGetPutData: false,
                     repairIdUpdate: null
-                });
-            })
+                }))
             .catch(err => alert(err));
     }
   
     getPostData(resetForm) {
-      this.setState({shouldGetPostData: true});
-      resetForm({
-        car_id: "",
-        description: "",
-        date: "",
-        cost: "",
-        progress: "",
-        technician: ""
-      })
+        queryFunctionsForCars.getCarsData()
+            .then(res => this.setState({
+                cars: res,
+                shouldGetPostData: true,
+            }))
+            .catch(err => console.log(err))
+        resetForm({
+            car_id: "",
+            description: "",
+            date: "",
+            cost: "",
+            progress: "",
+            technician: ""
+        })
     }
   
     callPostData(values) {
         queryFunctions.postData(values)
-            .then(res => {
-                var mergedRepairData = [];
-                for (var i=0; i< res.repairs.length; i++) {
-                    var carForRepair = this.getCarForRepair(this.state.cars, res.repairs[i].car_id);
-                    mergedRepairData.push(new RepairWithCar(carForRepair, res.repairs[i]))
-                }
-                this.setState({
+            .then(res => this.setState({
                     mergedRepairs: mergedRepairData, 
                     shouldGetPostData: false
-                });
-            })
+                }))
             .catch(err => console.log(err));
     }
-  
-    tableStyles() {
-        return ({
-            
-        });
-    };
-  
-    rowColStyles() {
-        return ({
-           
-        });
-    };
 
     getRepairsDisplay = (props) => {
         var repairsDisplay = this.state.mergedRepairs.map((repair) => { 
@@ -240,7 +178,7 @@ class RepairsComponent extends Component {
     }
   
     render() {
-        if (this.state.cars == null || this.state.mergedRepairs == null) {
+        if (this.state.mergedRepairs == null) {
             return (<Text>Loading...</Text>)
         }
   
@@ -256,7 +194,7 @@ class RepairsComponent extends Component {
                 {props => (
                     <View>
                         <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-                            <Text style={{fontSize: 20}}>Repairs - REST</Text>
+                            <Text style={{fontSize: 20}}>Repairs - GraphQL</Text>
                         </View>
                         <ScrollView
                             contentInsetAdjustmentBehavior="automatic"

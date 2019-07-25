@@ -8,7 +8,8 @@ import CarFormComponent from './CarFormComponent'
 import { Table, Row, Col } from 'react-native-table-component';
 import { withNavigation } from "react-navigation";
 
-const queryFunctions = require('./queryFuncForCarsComponent')
+const restQueryFunctions = require('./queryFuncForCarsComponent');
+const graphQLQueryFunctions = require('./graphQLQueriesForCars');
 
 class CarsComponent extends Component {
     constructor(props){
@@ -26,23 +27,24 @@ class CarsComponent extends Component {
         carForm: null,
         modalVisible: false
       }
+      this.queryFunctions = (this.props.queryFuncType == "REST") ? restQueryFunctions : graphQLQueryFunctions;
     }
-    
+        
     componentDidMount() {
         const { navigation } = this.props;
         this.focusListener = navigation.addListener("didFocus", () => {
-            queryFunctions.getCarsData()
-                .then(res => this.setState({ cars: res.cars }))
+            this.queryFunctions.getCarsData()
+                .then(res => this.setState({ cars: res }))
                 .catch(err => console.log(err));
         });
     }
   
     callDeleteData(carId) {
-        queryFunctions.deleteData(carId)
-            .then(res => this.setState({cars: res.cars}))
+        this.queryFunctions.deleteData(carId)
+            .then(res => this.setState({cars: res}))
             .catch(err => console.log(err));
 
-        queryFunctions.deleteRepairsWithCar(carId)
+        this.queryFunctions.deleteRepairsWithCar(carId)
             .catch(err => console.log(err));
 
         if (this.state.repairCarId === carId) {
@@ -64,9 +66,9 @@ class CarsComponent extends Component {
     }
   
     callPutData(carId, values) {
-        queryFunctions.putData(carId, values)
+        this.queryFunctions.putData(carId, values)
             .then(res => this.setState({ 
-                cars: res.cars,
+                cars: res,
                 shouldGetPostData: false,
                 shouldGetPutData: false,
                 carIdUpdate: null
@@ -86,9 +88,9 @@ class CarsComponent extends Component {
     }
   
     callPostData(values) {
-        queryFunctions.postData(values)
+        this.queryFunctions.postData(values)
             .then(res => this.setState({ 
-                cars: res.cars,
+                cars: res,
                 shouldGetPostData: false,
                 shouldGetPutData: false,
                 carIdUpdate: null,
@@ -97,9 +99,9 @@ class CarsComponent extends Component {
     }
 
     setRepairsForCar = (repairCarId, repairCarMake, repairCarModel, repairCarYear) => {
-        queryFunctions.getRepairsForCar(repairCarId)
+        this.queryFunctions.getRepairsForCar(repairCarId)
             .then(res => this.setState({ 
-                repairsForCar: res.repairsForCar,
+                repairsForCar: res,
                 repairCarId: repairCarId,
                 repairCarMake: repairCarMake,
                 repairCarModel: repairCarModel,
@@ -239,6 +241,9 @@ class CarsComponent extends Component {
                 >
                 {props => (
                     <View>
+                        <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+                            <Text style={{fontSize: 20}}>Cars - {this.props.queryFuncType}</Text>
+                        </View>
                         <ScrollView 
                             contentInsetAdjustmentBehavior="automatic"
                             contentContainerStyle={{flexGrow:1, marginHorizontal: 15}}>
