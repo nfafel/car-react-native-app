@@ -1,4 +1,30 @@
-import ApolloClient, {gql} from "apollo-boost";
+import ApolloClient, {gql} from 'apollo-boost';
+
+/*
+import {SubscriptionClient, addGraphQLSubscriptions} from 'subscriptions-transport-ws';
+import ApolloClient, {createNetworkInterface, gql} from 'apollo-client';
+
+const networkInterface = createNetworkInterface({
+    uri: 'http://localhost:3000' // Your GraphQL endpoint
+});
+
+const wsClient = new SubscriptionClient(`ws://localhost:5000/`, {
+    reconnect: true,
+    connectionParams: {
+        // Pass any arguments you want for initialization
+    }
+});
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+    networkInterface,
+    wsClient
+);
+
+// Finally, create your ApolloClient instance with the modified network interface
+const client = new ApolloClient({
+    networkInterface: networkInterfaceWithSubscriptions
+});
+*/
 
 const client = new ApolloClient({
   uri: "https://tranquil-caverns-41069.herokuapp.com/graphql"

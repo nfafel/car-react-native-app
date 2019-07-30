@@ -3,7 +3,8 @@ import { View, Text, Button, TextInput, Picker, TouchableOpacity, KeyboardAvoidi
 import { Row, Col } from 'react-native-table-component';
 import Modal from "react-native-modal";
 
-const queryFunctions = require('./queryFuncForCarsComponent');
+const restQueryFunctions = require('./queryFuncForCarsComponent');
+const graphqlQueryFunctions = require('./graphQLQueriesForCars');
 
 class CarFormComponent extends Component {
     
@@ -13,23 +14,36 @@ class CarFormComponent extends Component {
         yearsRange: null, 
         allMakes: null,
         allModels: null,
-        newCarYear: null,
-        newCarMake: null,
+        newCarYear: props.formikProps.values.year,
+        newCarMake: props.formikProps.values.make,
         visible: false
       }
+      this.queryFunctions = (this.props.queryType == "rest") ? restQueryFunctions : graphqlQueryFunctions;
     }
 
     componentDidMount() {
         queryFunctions.getAllCarYears()
-            .then(res => this.setState({ yearsRange: res.Years }))
-            .catch(err => alert(err));
+            .then(res => this.setState({ yearsRange: res }))
+            .catch(err => console.log(err));
+
+        if (this.state.newCarYear != "") {
+            queryFunctions.getAllCarMakes(this.state.newCarYear)
+                .then(res => this.setState({ allMakes: res }))
+                .catch(err => console.log(err));
+
+            queryFunctions.getAllCarModels(this.state.newCarMake, this.state.newCarYear)
+                .then(res => this.setState({ allModels: res }))
+                .catch(err => console.log(err));
+        }
     }
 
     getYearOptions = () => {
         if (this.state.yearsRange == null) {
-            return <Picker.Item key="nullYears" value="" label="Loading..." />
+            return [
+                <Picker.Item key="nullYears" value="" label="Loading..." />,
+            ]
         }
-
+        
         var allYears = [<Picker.Item value="" key="selectYear" label="Select a Year" />];
         for (var i = this.state.yearsRange.max_year; i>=this.state.yearsRange.min_year; i--) {
             allYears.push(<Picker.Item key={""+i} value={i} label={""+i} />);
@@ -38,23 +52,15 @@ class CarFormComponent extends Component {
     }
 
     
-    getMakeOptions = (values, setFieldValue) => {
-        if (values.year === "") {
-            return (<Picker.Item key="noYearChosen" value="" label="Select a Make" />, <Picker.Item value="" label="Select a Year to See Car Makes" />);
+    getMakeOptions = () => {
+        if (this.props.formikProps.values.year === "") {
+            return <Picker.Item value="" label="No Year Chosen" />;
+            
         }
-
-        if (this.state.newCarYear !== values.year) {
-            if (!this.props.shouldGetPutData) {
-                setFieldValue('make', "");
-            }
-            this.setState( {newCarYear: values.year} );
-            queryFunctions.getAllCarMakes(values.year)
-                .then(res => this.setState({ allMakes: res.Makes }))
-                .catch(err => alert(err)); 
+        if (this.state.allMakes === null ) {
+            return [<Picker.Item key="makesNull" value="" label="Loading..." />]
         }
-        if (this.state.allMakes == null ) {
-            return (<Picker.Item key="makesNull" value="" label="Loading..." />)
-        }
+        
         var allMakes;
         allMakes = this.state.allMakes.map((make) => {
             return (<Picker.Item key={""+make.make_id} value={make.make_id} label={""+make.make_display} />);
@@ -62,28 +68,16 @@ class CarFormComponent extends Component {
         allMakes.splice(0,0, <Picker.Item key="selectMake" value="" label="Select a Make" />);
         return allMakes;
     }
-
-    getModelOptions = (values, setFieldValue) => {
-        if (values.make === "") {
-            return (<Picker.Item key="noMakeChosen" value="" label="Select a Model" />, <Picker.Item value="" label="Select a Make to see Car Models" />);
+    
+    getModelOptions = () => {
+        if (this.props.formikProps.values.make === "") {
+            return <Picker.Item value="" label="No Make Chosen" />;
         }
-
-        if (this.state.newCarMake !== values.make) {
-            if (!this.props.shouldGetPutData) {
-                setFieldValue('model', "");
-            }
-            this.setState({newCarMake: values.make});
-            
-            queryFunctions.getAllCarModels(values.make, values.year)
-                .then(res => this.setState({ allModels: res.Models }))
-                .catch(err => alert(err));
-
+        
+        if (this.state.allModels === null) {
+            return [<Picker.Item key="modelsNull" value="" label="Loading..." /> ]
         }
-
-        if (this.state.allModels == null) {
-            return (<Picker.Item key="modelsNull" value="" label="Loading..." />)
-        }
-
+        
         var allModels;
         allModels = this.state.allModels.map((model) => {
             return (<Picker.Item key={""+model.model_name} value={model.model_name} label={""+model.model_name} />);
@@ -91,9 +85,36 @@ class CarFormComponent extends Component {
         allModels.splice(0,0, <Picker.Item key="selectModel" value="" label="Select a Model" />);
         return allModels;
     }
+
+    async handleYearChange(selectedYear) {
+        if (selectedYear !== "") {
+            queryFunctions.getAllCarMakes(selectedYear)
+                .then(res => this.setState({allMakes: res}))
+                .catch(err => console.log(err));
+        }
+
+        await this.props.formikProps.setFieldValue('model', "");
+        await this.props.formikProps.setFieldValue('make', "");
+        await this.props.formikProps.setFieldValue('year', selectedYear);
+    }
     
+    async handleMakeChange(selectedMake) {
+        if (selectedMake !== "") {
+            queryFunctions.getAllCarModels(selectedMake, this.props.formikProps.values.year)
+                .then(res => this.setState({ allModels: res }))
+                .catch(err => console.log(err));
+        }
+
+        await this.props.formikProps.setFieldValue('model', "");
+        await this.props.formikProps.setFieldValue('make', selectedMake);
+    }
+
+    async handleModelChange(selectedModel) {
+        await this.props.formikProps.setFieldValue('model', selectedModel);
+    }
 
     render() {
+        console.log(this.props.formikProps.values)
         return (
             <Modal 
                 avoidKeyboard={true}
@@ -112,7 +133,7 @@ class CarFormComponent extends Component {
                         </View>, 
                         <Picker key="yearForm"
                             itemStyle={{height: 140}}
-                            onValueChange={this.props.formikProps.handleChange('year')}
+                            onValueChange={(selectedYear) => this.handleYearChange(selectedYear)}
                             selectedValue={this.props.formikProps.values.year}
                         >
                             {this.getYearOptions()}
@@ -127,10 +148,10 @@ class CarFormComponent extends Component {
                         </View>,
                         <Picker key="makeForm"
                             itemStyle={{height: 140}}
-                            onValueChange={this.props.formikProps.handleChange('make')}
+                            onValueChange={(selectedMake) => this.handleMakeChange(selectedMake)}
                             selectedValue={this.props.formikProps.values.make}
                         >
-                            {this.getMakeOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
+                            {this.getMakeOptions()}
                         </Picker> ]} 
                     />
                     <Row textStyle={{textAlign: 'center'}} style={{flex:1}} data={[
@@ -142,10 +163,10 @@ class CarFormComponent extends Component {
                         </View>,
                         <Picker key="modelForm"
                             itemStyle={{height: 140}}
-                            onValueChange={this.props.formikProps.handleChange('model')}
+                            onValueChange={(selectedModel) => this.handleModelChange(selectedModel)}
                             selectedValue={this.props.formikProps.values.model}
                         >
-                            {this.getModelOptions(this.props.formikProps.values, this.props.formikProps.setFieldValue)}
+                            {this.getModelOptions()}
                         </Picker> ]} 
                     />
                     <Row textStyle={{textAlign: 'center'}} style={{flex:1}} data={[

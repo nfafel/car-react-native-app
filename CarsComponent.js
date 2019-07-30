@@ -134,7 +134,7 @@ class CarsComponent extends Component {
                     </View>
                 </Modal>
             );
-        } 
+        }
     }
 
     getNewCarButton = (resetForm) => {
@@ -152,7 +152,7 @@ class CarsComponent extends Component {
     getCarsDisplay = (props) => {
         var carsData = this.state.cars.map((car) => {
             if (this.state.shouldGetPutData && car._id === this.state.carIdUpdate) {
-                return (<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
+                return (<CarFormComponent queryFuncType={this.props.queryFuncType} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
             } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
                 return (
                     <View style={{marginVertical: 10}}>
@@ -190,7 +190,7 @@ class CarsComponent extends Component {
             }
         });
         if (this.state.shouldGetPostData) {
-            carsData.push(<CarFormComponent formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
+            carsData.push(<CarFormComponent queryFuncType={this.props.queryFuncType} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
         }
         return (carsData.reverse());
     }
@@ -261,5 +261,3 @@ class CarsComponent extends Component {
 }
 
 export default withNavigation(CarsComponent);
-
-
