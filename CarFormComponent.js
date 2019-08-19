@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import { View, Text, Button, TextInput, Picker, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { Row, Col } from 'react-native-table-component';
 import Modal from "react-native-modal";
+import { connect } from "react-redux";
 
-const restQueryFunctions = require('./queryFuncForCarsComponent');
-const graphqlQueryFunctions = require('./graphQLQueriesForCars');
+const restQueryFunctions = require('./Rest/queryFuncForCarsComponent');
+const graphqlQueryFunctions = require('./GraphQL/graphQLQueriesForCars');
 
 class CarFormComponent extends Component {
     
@@ -18,22 +19,29 @@ class CarFormComponent extends Component {
         newCarMake: props.formikProps.values.make,
         visible: false
       }
-      this.queryFunctions = (this.props.queryType == "rest") ? restQueryFunctions : graphqlQueryFunctions;
+      this.queryFunctions = (this.props.queryType === "rest") ? restQueryFunctions : graphqlQueryFunctions;
     }
 
-    componentDidMount() {
-        queryFunctions.getAllCarYears()
-            .then(res => this.setState({ yearsRange: res }))
-            .catch(err => console.log(err));
+    async componentDidMount() {
+        try {
+            const allYears = await this.queryFunctions.getAllCarYears();
+            
+            if (this.state.newCarYear != "") {
+                const allMakes = await this.queryFunctions.getAllCarMakes(this.state.newCarYear);
+                const allModels = await this.queryFunctions.getAllCarModels(this.state.newCarMake, this.state.newCarYear);
+                this.setState({
+                    yearsRange: allYears,
+                    allMakes: allMakes,
+                    allModels: allModels
+                })
+            } else {
+                this.setState({
+                    yearsRange: allYears
+                })
+            }
 
-        if (this.state.newCarYear != "") {
-            queryFunctions.getAllCarMakes(this.state.newCarYear)
-                .then(res => this.setState({ allMakes: res }))
-                .catch(err => console.log(err));
-
-            queryFunctions.getAllCarModels(this.state.newCarMake, this.state.newCarYear)
-                .then(res => this.setState({ allModels: res }))
-                .catch(err => console.log(err));
+        } catch(err) {
+            console.log(err);
         }
     }
 
@@ -88,7 +96,7 @@ class CarFormComponent extends Component {
 
     async handleYearChange(selectedYear) {
         if (selectedYear !== "") {
-            queryFunctions.getAllCarMakes(selectedYear)
+            this.queryFunctions.getAllCarMakes(selectedYear)
                 .then(res => this.setState({allMakes: res}))
                 .catch(err => console.log(err));
         }
@@ -100,7 +108,7 @@ class CarFormComponent extends Component {
     
     async handleMakeChange(selectedMake) {
         if (selectedMake !== "") {
-            queryFunctions.getAllCarModels(selectedMake, this.props.formikProps.values.year)
+            this.queryFunctions.getAllCarModels(selectedMake, this.props.formikProps.values.year)
                 .then(res => this.setState({ allModels: res }))
                 .catch(err => console.log(err));
         }
@@ -114,7 +122,6 @@ class CarFormComponent extends Component {
     }
 
     render() {
-        console.log(this.props.formikProps.values)
         return (
             <Modal 
                 avoidKeyboard={true}
@@ -198,4 +205,10 @@ class CarFormComponent extends Component {
     }
 }
 
-export default CarFormComponent;
+const mapStateToProps = function(state) {
+    return {
+        queryType: state.queryType
+    }
+}  
+
+export default connect(mapStateToProps)(CarFormComponent);

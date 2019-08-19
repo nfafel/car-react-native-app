@@ -36,12 +36,12 @@ class RepairsByCarComponent extends Component {
 
     render() {
         if (this.props.repairsForCar[0] === undefined) {
-            return (<Text>No Repairs Recorded for the {this.props.repairCarYear} {this.props.repairCarMake} {this.props.repairCarModel}</Text>);
+            return (<Text>No Repairs Recorded for the {this.props.repairCar.year} {this.props.repairCar.make} {this.props.repairCar.model}</Text>);
         }
         return(
             <ScrollView>
                 <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Repairs for the {this.props.repairCarYear} {this.props.repairCarMake} {this.props.repairCarModel}</Text>
+                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Repairs for the {this.props.repairCar.year} {this.props.repairCar.make} {this.props.repairCar.model}</Text>
                 </View>
                 {this.getRepairTableRows()}
             </ScrollView>

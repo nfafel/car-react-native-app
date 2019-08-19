@@ -1,46 +1,11 @@
-import ApolloClient, {gql} from 'apollo-boost';
+import {gql} from 'apollo-boost';
+import client from './apolloClient';
 
-/*
-import {SubscriptionClient, addGraphQLSubscriptions} from 'subscriptions-transport-ws';
-import ApolloClient, {createNetworkInterface, gql} from 'apollo-client';
-
-const networkInterface = createNetworkInterface({
-    uri: 'http://localhost:3000' // Your GraphQL endpoint
-});
-
-const wsClient = new SubscriptionClient(`ws://localhost:5000/`, {
-    reconnect: true,
-    connectionParams: {
-        // Pass any arguments you want for initialization
-    }
-});
-
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-    networkInterface,
-    wsClient
-);
-
-// Finally, create your ApolloClient instance with the modified network interface
-const client = new ApolloClient({
-    networkInterface: networkInterfaceWithSubscriptions
-});
-*/
-
-const client = new ApolloClient({
-  uri: "https://tranquil-caverns-41069.herokuapp.com/graphql"
-});
-
-client.defaultOptions = {
-  watchQuery: {
-    fetchPolicy: 'network-only'
-  },
-  query: {
-    fetchPolicy: 'network-only'
-  }
-}
-
-export const getRepairsData = async() => {
+export const getRepairsData = async(token) => {
     const result = await client.query({
+        variables:{
+            authorization: `Bearer ${token}`
+        },
         query:gql`
             query {
                 repairs {
@@ -64,8 +29,11 @@ export const getRepairsData = async() => {
     return result.data.repairs;
 };
 
-export const deleteData = async(repairId) => {
+export const deleteData = async(repairId, token) => {
     const result = await client.mutate({
+        variables:{
+            authorization: `Bearer ${token}`
+        },
         mutation:gql`
             mutation {
                 removeRepair(id: "${repairId}") {
@@ -89,16 +57,19 @@ export const deleteData = async(repairId) => {
     return result.data.removeRepair;
 }
 
-export const putData = async(repairId, values) => {
+export const putData = async(repairId, values, token) => {
     const result = await client.mutate({
-        variables: { input: {
-            car_id: values.car_id,
-            description: values.description,
-            date: values.date,
-            cost: values.cost,
-            progress: values.progress,
-            technician: values.technician
-        }},
+        variables: {
+            authorization: `Bearer ${token}`, 
+            input: {
+                car_id: values.car_id,
+                description: values.description,
+                date: values.date,
+                cost: values.cost,
+                progress: values.progress,
+                technician: values.technician
+            }
+        },
         mutation:gql`
             mutation UpdateRepairInput($input: RepairInput){
                 updateRepair(id: "${repairId}", input: $input) {
@@ -122,16 +93,19 @@ export const putData = async(repairId, values) => {
     return result.data.updateRepair;
 }
 
-export const postData = async(values) => {
+export const postData = async(values, token) => {
     const result = await client.mutate({
-        variables: { input: {
-            car_id: values.car_id,
-            description: values.description,
-            date: values.date,
-            cost: parseInt(values.cost),
-            progress: values.progress,
-            technician: values.technician
-        }},
+        variables: { 
+            authorization: `Bearer ${token}`, 
+            input: {
+                car_id: values.car_id,
+                description: values.description,
+                date: values.date,
+                cost: parseInt(values.cost),
+                progress: values.progress,
+                technician: values.technician
+            }
+        },
         mutation:gql`
             mutation NewRepairInput($input: RepairInput){
                 createRepair(input: $input) {
@@ -153,4 +127,36 @@ export const postData = async(values) => {
         `
     });
     return result.data.createRepair;
+}
+
+export const subscribeToRepairsData = async (context, token) => {
+    client.subscribe({
+        authorization: {
+            authorization: `Bearer ${token}`
+        },
+        query: gql`
+            subscription {
+                repairChanged {
+                    _id
+                    car {
+                        _id
+                        make
+                        model
+                        year
+                        rating
+                    }
+                    date
+                    description
+                    cost 
+                    progress
+                    technician
+                }
+            }
+        `
+    }).subscribe({
+        next(res) {
+            context.setState({repairs: res.data.repairChanged})
+        },
+        error(err) {console.log(err)}
+    });
 }

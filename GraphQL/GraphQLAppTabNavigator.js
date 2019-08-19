@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import CarsComponent from './CarsComponent'
+import GraphQLCarsComponent from './GraphQLCarsComponent'
 import GraphQLHomeComponent from './GraphQLHomeComponent'
 import GraphQLRepairsComponent from './GraphQLRepairsComponent'
 
@@ -18,7 +18,7 @@ class HomeScreen extends Component {
 class CarsScreen extends Component {
     render() {
       return ( 
-        <CarsComponent queryFuncType="GraphQL" />
+        <GraphQLCarsComponent />
       );
     }
 }

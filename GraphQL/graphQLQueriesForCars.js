@@ -1,46 +1,11 @@
-import ApolloClient, {gql} from 'apollo-boost';
+import {gql} from 'apollo-boost';
+import client from './apolloClient'
 
-/*
-import {SubscriptionClient, addGraphQLSubscriptions} from 'subscriptions-transport-ws';
-import ApolloClient, {createNetworkInterface, gql} from 'apollo-client';
-
-const networkInterface = createNetworkInterface({
-    uri: 'http://localhost:3000' // Your GraphQL endpoint
-});
-
-const wsClient = new SubscriptionClient(`ws://localhost:5000/`, {
-    reconnect: true,
-    connectionParams: {
-        // Pass any arguments you want for initialization
-    }
-});
-
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-    networkInterface,
-    wsClient
-);
-
-// Finally, create your ApolloClient instance with the modified network interface
-const client = new ApolloClient({
-    networkInterface: networkInterfaceWithSubscriptions
-});
-*/
-
-const client = new ApolloClient({
-  uri: "https://tranquil-caverns-41069.herokuapp.com/graphql"
-});
-
-client.defaultOptions = {
-  watchQuery: {
-    fetchPolicy: 'network-only'
-  },
-  query: {
-    fetchPolicy: 'network-only'
-  }
-}
-
-export const getCarsData = async() => {
+export const getCarsData = async(token) => {
   const result = await client.query({
+    variables: {
+      authorization: `Bearer ${token}`
+    },
     query: gql`
       query {
         cars {
@@ -56,8 +21,11 @@ export const getCarsData = async() => {
   return result.data.cars;
 };
 
-export const deleteData = async(carId) => {
+export const deleteData = async(carId, token) => {
   const result = await client.mutate({
+    variables: {
+      authorization: `Bearer ${token}`
+    },
     mutation: gql` 
       mutation {
         removeCar(id: "${carId}") {
@@ -73,14 +41,17 @@ export const deleteData = async(carId) => {
   return result.data.removeCar;
 }
 
-export const putData = async(carId, values) => {
+export const putData = async(carId, values, token) => {
   const result = await client.mutate({
-    variables: {input: {
-      make: values.make,
-      model: values.model,
-      year: parseInt(values.year),
-      rating: parseInt(values.rating)
-    }},
+    variables: {
+      authorization: `Bearer ${token}`,
+      input: {
+        make: values.make,
+        model: values.model,
+        year: parseInt(values.year),
+        rating: parseInt(values.rating)
+      }
+    },
     mutation: gql`
       mutation CarUpdatesInput($input: CarInput){
         updateCar(id: "${carId}", input: $input) {
@@ -96,14 +67,17 @@ export const putData = async(carId, values) => {
   return result.data.updateCar;
 }
 
-export const postData = async(values) => {
+export const postData = async(values, token) => {
   const result = await client.mutate({
-    variables: {input: {
-      make: values.make,
-      model: values.model,
-      year: parseInt(values.year),
-      rating: parseInt(values.rating)
-    }},
+    variables: {
+      authorization: `Bearer ${token}`,
+      input: {
+        make: values.make,
+        model: values.model,
+        year: parseInt(values.year),
+        rating: parseInt(values.rating)
+      }
+    },
     mutation: gql`
       mutation NewCarInput($input: CarInput){
         createCar(input: $input) {
@@ -119,8 +93,11 @@ export const postData = async(values) => {
   return result.data.createCar;
 }
 
-export const getRepairsForCar = async(repairsForCarId) => {
+export const getRepairsForCar = async(repairsForCarId, token) => {
   const result = await client.query({
+    variables: {
+      authorization: `Bearer ${token}`
+    },
     query: gql`
       query {
         repairsForCar(carId: "${repairsForCarId}") {

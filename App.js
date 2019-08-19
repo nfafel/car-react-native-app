@@ -14,26 +14,32 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import RestAppContainer from './RestAppTabNavigator';
-import GraphQLAppContainer from './GraphQLAppTabNavigator';
-import { thisExpression } from '@babel/types';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { MenuProvider, MenuTrigger, Menu, MenuOptions, MenuOption } from 'react-native-popup-menu';
+import RestAppContainer from './Rest/RestAppTabNavigator';
+import GraphQLAppContainer from './GraphQL/GraphQLAppTabNavigator';
+import MenuComponent from './MenuComponent'
+import RegistrationComponent from './RegistrationComponent'
+import LoginComponent from './LoginComponent'
+import { Provider, connect } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
+import reduxFunc from './redux/store'
+import { MenuProvider } from 'react-native-popup-menu';
 
-class App extends Component {
+class CarRepairApp extends Component {
   constructor(props) {
     super(props) 
     this.state = {
       version: null,
-      appContainer: RestAppContainer,
-      queryType: "rest"
+      newAccountForm: "closed"
     }
   }
 
-  componentDidMount() {
-    this.getVersionData()
-      .then(res => this.setState({ version: res.version }))
-      .catch(err => console.log(err));
+  async componentDidMount() {
+    try{
+      const response = await this.getVersionData();
+      this.setState({version: response.version})
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   getVersionData = async() => {
@@ -43,6 +49,7 @@ class App extends Component {
     if (response.status !== 200) {
       throw Error(body) 
     }
+
     return body;
   };
 
@@ -50,70 +57,80 @@ class App extends Component {
     if (this.state.version == null) {
       return (
         <View style={{alignSelf: 'center'}}>
-          <Text style={styles.version}>Loading...</Text>
+          <Text style={{color: "white"}}>Loading...</Text>
         </View>
       )
     } 
     return (
       <View style={{alignSelf: 'center'}}>
-        <Text style={styles.version}>{this.state.version}</Text>
+        <Text style={{color: "white", fontSize: 15}}>{this.state.version}</Text>
       </View>
     )
   }
 
   render () { 
-    var restBackground, graphqlBackground;
-    if (this.state.queryType == "rest") {
-      restBackground = "cyan"
-      graphqlBackground = "white"
-    } else {
-      restBackground = "white"
-      graphqlBackground = "cyan"
-    }
-
     return (
       <Fragment>
         <MenuProvider>
-
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView style={{flex: 1}}>
-            <View style={{backgroundColor: 'powderblue', marginBottom: 10}} >
-                <View>
-                  <Text style={styles.title}>Car Repair App</Text>
-                  {this.getVersionText()}
-                </View>
-                <View style={{position: 'absolute', right: 10, top: 8}}>
-                  <Menu>
-                    <MenuTrigger>
-                      <Icon name="ellipsis-v" size={25} color="#6e737a" />
-                    </MenuTrigger>
-                    <MenuOptions>
-                      <MenuOption style={{backgroundColor: restBackground}} text="REST" onSelect={() => this.setState({appContainer: RestAppContainer, queryType: "rest"})} />
-                      <MenuOption style={{backgroundColor: graphqlBackground}} text="GraphQL" onSelect={() => this.setState({appContainer: GraphQLAppContainer, queryType: "graphql"})} />
-                    </MenuOptions>
-                  </Menu>
-                </View>
-            </View>
-            <this.state.appContainer queryType={this.state.queryType} />
-        </SafeAreaView>
-
+          <StatusBar barStyle="dark-content" />
+          <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>
+              <View style={{flex: 0, zIndex:1, backgroundColor: '#282c34'}} >
+                <Text style={styles.title}>Car Repair App</Text>
+                {this.getVersionText()}
+                {(this.props.token !== "") && <MenuComponent />}
+              </View>
+              {(this.props.token === "") ? 
+                (<View style={{flex: 0, flexGrow: 0.8, flexDirection: "column", justifyContent: "center"}}>
+                  {(this.state.newAccountForm === "closed") ? 
+                    (<LoginComponent createAccount={() => this.setState({newAccountForm: "open"})}/>)
+                    : 
+                    (<RegistrationComponent cancel={() => this.setState({newAccountForm: "closed"})} />) 
+                  }
+                </View>)
+                :
+                (
+                  <View style={{flex: 0, flexGrow: 1}}>
+                    {(this.props.queryType === "rest") ? (<RestAppContainer />) : (<GraphQLAppContainer />) }
+                  </View>
+                )
+              }
+          </SafeAreaView>
         </MenuProvider>
       </Fragment>
     );
-
   }
-
 }
 
+const mapStateToProps = function(state) {
+  return {
+      token: state.token,
+      queryType: state.queryType
+  }
+}
+
+const ConnectedApp = connect(mapStateToProps)(CarRepairApp);
+const {store, persistor} = reduxFunc();
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ConnectedApp />
+        </PersistGate>
+      </Provider>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
+    backgroundColor: "#282c34",
   },
   title: {
     fontSize: 40, 
     fontWeight: '600', 
-    color: Colors.black, 
+    color: Colors.white, 
     textAlign: 'center'
   },
   version: {

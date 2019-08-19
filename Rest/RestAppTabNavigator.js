@@ -18,7 +18,7 @@ class HomeScreen extends Component {
 class CarsScreen extends Component {
     render() {
       return ( 
-        <CarsComponent queryFuncType="REST" />
+        <CarsComponent />
       );
     }
 }

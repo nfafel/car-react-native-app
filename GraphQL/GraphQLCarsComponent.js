@@ -3,13 +3,11 @@ import { View, Text, Button, ScrollView, TouchableOpacity} from 'react-native';
 import Modal from "react-native-modal";
 import { Formik } from 'formik';
 import * as Yup from 'yup'
-import RepairsByCarComponent from './RepairsByCarComponent'
-import CarFormComponent from './CarFormComponent'
+import RepairsByCarComponent from '../RepairsByCarComponent'
+import CarFormComponent from '../CarFormComponent'
 import { Table, Row, Col } from 'react-native-table-component';
-import { withNavigation } from "react-navigation";
 
-const restQueryFunctions = require('./queryFuncForCarsComponent');
-const graphQLQueryFunctions = require('./graphQLQueriesForCars');
+const queryFunctions = require('./graphQLQueriesForCars');
 
 class CarsComponent extends Component {
     constructor(props){
@@ -27,24 +25,17 @@ class CarsComponent extends Component {
         carForm: null,
         modalVisible: false
       }
-      this.queryFunctions = (this.props.queryFuncType == "REST") ? restQueryFunctions : graphQLQueryFunctions;
     }
         
     componentDidMount() {
-        const { navigation } = this.props;
-        this.focusListener = navigation.addListener("didFocus", () => {
-            this.queryFunctions.getCarsData()
-                .then(res => this.setState({ cars: res }))
-                .catch(err => console.log(err));
-        });
+        queryFunctions.getCarsData()
+            .then(res => this.setState({ cars: res }))
+            .catch(err => console.log(err));
     }
   
     callDeleteData(carId) {
-        this.queryFunctions.deleteData(carId)
+        queryFunctions.deleteData(carId)
             .then(res => this.setState({cars: res}))
-            .catch(err => console.log(err));
-
-        this.queryFunctions.deleteRepairsWithCar(carId)
             .catch(err => console.log(err));
 
         if (this.state.repairCarId === carId) {
@@ -66,7 +57,7 @@ class CarsComponent extends Component {
     }
   
     callPutData(carId, values) {
-        this.queryFunctions.putData(carId, values)
+        queryFunctions.putData(carId, values)
             .then(res => this.setState({ 
                 cars: res,
                 shouldGetPostData: false,
@@ -88,7 +79,7 @@ class CarsComponent extends Component {
     }
   
     callPostData(values) {
-        this.queryFunctions.postData(values)
+        queryFunctions.postData(values)
             .then(res => this.setState({ 
                 cars: res,
                 shouldGetPostData: false,
@@ -99,7 +90,7 @@ class CarsComponent extends Component {
     }
 
     setRepairsForCar = (repairCarId, repairCarMake, repairCarModel, repairCarYear) => {
-        this.queryFunctions.getRepairsForCar(repairCarId)
+        queryFunctions.getRepairsForCar(repairCarId)
             .then(res => this.setState({ 
                 repairsForCar: res,
                 repairCarId: repairCarId,
@@ -140,7 +131,7 @@ class CarsComponent extends Component {
     getNewCarButton = (resetForm) => {
         if (!(this.state.shouldGetPutData || this.state.shouldGetPostData)) {
             return (
-                <View style={{position: 'absolute', bottom: 5, left:0, right:0, marginHorizontal: 20 }} >
+                <View style={{marginHorizontal: 15}}>
                     <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPostData(resetForm)} >
                         <Text style={{color: 'white', fontSize: 22}}>NEW CAR</Text>
                     </TouchableOpacity>
@@ -150,49 +141,36 @@ class CarsComponent extends Component {
     }
   
     getCarsDisplay = (props) => {
-        var carsData = this.state.cars.map((car) => {
-            if (this.state.shouldGetPutData && car._id === this.state.carIdUpdate) {
-                return (<CarFormComponent queryFuncType={this.props.queryFuncType} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
-            } else if (this.state.shouldGetPostData || this.state.shouldGetPutData) {
-                return (
-                    <View style={{marginVertical: 10}}>
-                        <Table>
-                            <Row textStyle={{textAlign: 'center'}} data={['Year', car.year]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Make', car.make]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Model', car.model]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Rating', car.rating]} />
-                        </Table>
-                    </View>
-                )
-            } else {
-                return ( 
-                    <View style={{marginVertical: 10}}>
-                        <Table>
-                            <Row textStyle={{textAlign: 'center'}} data={['Year', car.year]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Make', car.make]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Model', car.model]} />
-                            <Row textStyle={{textAlign: 'center'}} data={['Rating', car.rating]} />
-                            <Row data={[
-                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
-                                    <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
-                                </TouchableOpacity>,
-                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
-                                    <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
-                                </TouchableOpacity>,
-                                <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
-                                    <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
-                                </TouchableOpacity>
-                                ]}
-                            />
-                        </Table>
-                    </View>
-                )
-            }
-        });
         if (this.state.shouldGetPostData) {
-            carsData.push(<CarFormComponent queryFuncType={this.props.queryFuncType} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
+            return (<CarFormComponent queryFuncType={'graphql'} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPostData: false})}} buttonText="SUBMIT" />);
+        } else if (this.state.shouldGetPutData) {
+            return (<CarFormComponent queryFuncType={'graphql'} formikProps={props} shouldGetPutData={this.state.shouldGetPutData} shouldGetPostData={this.state.shouldGetPostData} cancel={() => {this.setState({shouldGetPutData: false})}} buttonText="UPDATE" />);
         }
-        return (carsData.reverse());
+        var carsData = this.state.cars.map((car) => {
+            return ( 
+                <View style={{marginVertical: 10}}>
+                    <Table>
+                        <Row textStyle={{textAlign: 'center'}} data={['Year', car.year]} />
+                        <Row textStyle={{textAlign: 'center'}} data={['Make', car.make]} />
+                        <Row textStyle={{textAlign: 'center'}} data={['Model', car.model]} />
+                        <Row textStyle={{textAlign: 'center'}} data={['Rating', car.rating]} />
+                        <Row data={[
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
+                                <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
+                            </TouchableOpacity>,
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
+                                <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
+                            </TouchableOpacity>,
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
+                                <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
+                            </TouchableOpacity>
+                            ]}
+                        />
+                    </Table>
+                </View>
+            )
+        });
+        return carsData.reverse();
     }
   
     handleCorrectSumbit = (values) => {
@@ -231,7 +209,7 @@ class CarsComponent extends Component {
         }
         
         return(
-            <View>
+            <View style={{flex: 1}}>
                 <Formik
                 initialValues = {{make: '', model: '', year: '', rating: ''}}
                 validationSchema={this.CarValidationSchema}
@@ -240,15 +218,14 @@ class CarsComponent extends Component {
                 }}
                 >
                 {props => (
-                    <View>
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
                         <View style={{justifyContent: 'center', flexDirection: 'row'}}>
-                            <Text style={{fontSize: 20}}>Cars - {this.props.queryFuncType}</Text>
+                            <Text style={{fontSize: 20}}>Cars - GraphQL</Text>
                         </View>
                         <ScrollView 
                             contentInsetAdjustmentBehavior="automatic"
-                            contentContainerStyle={{flexGrow:1, marginHorizontal: 15}}>
+                            contentContainerStyle={{ marginHorizontal: 15}}>
                             {this.getCarsDisplay(props)}
-                            <View style={{height: 40}}></View>
                         </ScrollView>
                         {this.getNewCarButton(props.resetForm)}
                     </View>
@@ -260,4 +237,4 @@ class CarsComponent extends Component {
     }
 }
 
-export default withNavigation(CarsComponent);
+export default CarsComponent;

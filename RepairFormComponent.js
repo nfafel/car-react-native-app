@@ -50,7 +50,7 @@ class RepairFormComponent extends Component {
                     margin: 20,
                     flex: 1,
                 }}
-                isVisible={this.props.visible}>
+                isVisible={true}>
                 <View style={{flex:1, backgroundColor: 'white'}}>
                     <Row style={{flex:1}} textStyle={{textAlign: 'center'}} data={[
                         <View>

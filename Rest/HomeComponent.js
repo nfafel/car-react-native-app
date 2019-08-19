@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Table, Row, Col, Rows } from 'react-native-table-component';
 import { withNavigation } from "react-navigation";
+import { connect } from "react-redux";
+import {logoutUser} from '../redux/actions';
 
 const queryFunctions = require('./queryFuncForRepairsComponent')
 
@@ -16,24 +18,24 @@ class HomeComponent extends Component {
     
     componentDidMount() {
         const { navigation } = this.props;
-        this.focusListener = navigation.addListener("didFocus", () => {
-            queryFunctions.getRepairsData()
-                .then(res => this.setState({ repairs: res.repairs }))
-                .catch(err => console.log(err)); 
-
-            queryFunctions.getCarsData()
-                .then(res => this.setState({ cars: res.cars }))
-                .catch(err => console.log(err));
+        this.focusListener = navigation.addListener("didFocus", async() => {
+            try {
+                const repairs = await queryFunctions.getRepairsData(this.props.token);
+                const cars = await queryFunctions.getCarsData(this.props.token);
+    
+                this.setState({
+                    repairs: repairs,
+                    cars: cars
+                });
+            } catch(err) {
+                if (err.statusCode === 401) {
+                    this.props.logoutUser();
+                    setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+                }
+                console.log(err.message)
+            }
         });
     }
-
-    tableStyles = {
-        
-    };
-
-    rowColStyles = {
-        
-    };
 
     getCarForRepair = (carId) => {
         for (var i = 0; i<this.state.cars.length; i++) {
@@ -47,7 +49,7 @@ class HomeComponent extends Component {
         var repairsDisplay = [];
         var numRepairs = this.state.repairs.length;
 
-        for (var i=0; i<numRepairs; i++) {
+        for (var i=numRepairs-1; i>=0; i--) {
             var repair = this.state.repairs[i];
             var carRepaired = this.getCarForRepair(repair.car_id);
             if (numRepairs <= 5 || i >= numRepairs-5) {
@@ -65,12 +67,16 @@ class HomeComponent extends Component {
                 )
             }
         }
-        return repairsDisplay.reverse();
+        return repairsDisplay;
     }
     
     render() {
         if (this.state.repairs == null || this.state.cars == null) {
-            return (<Text>Loading...</Text>);
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{color: 'black', fontSize: 25, fontWeight: 'bold'}}>Loading...</Text>
+                </View>
+            )
         }
 
         return(
@@ -86,6 +92,17 @@ class HomeComponent extends Component {
             </View>
         );
     }
-  }
-  
-  export default withNavigation(HomeComponent);
+}
+
+const mapStateToProps = function(state) {
+    return {
+        token: state.token,
+    }
+}  
+const mapDispatchToProps = function(dispatch) {
+    return {
+        logoutUser: () => dispatch(logoutUser()),
+    }
+}
+
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(HomeComponent));
