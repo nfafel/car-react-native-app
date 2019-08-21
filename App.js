@@ -21,7 +21,7 @@ import RegistrationComponent from './RegistrationComponent'
 import LoginComponent from './LoginComponent'
 import { Provider, connect } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
-import reduxFunc from './redux/store'
+import store, { persistor } from './redux/store'
 import { MenuProvider } from 'react-native-popup-menu';
 
 class CarRepairApp extends Component {
@@ -69,6 +69,7 @@ class CarRepairApp extends Component {
   }
 
   render () { 
+    console.log(this.props.queryType)
     return (
       <Fragment>
         <MenuProvider>
@@ -109,7 +110,6 @@ const mapStateToProps = function(state) {
 }
 
 const ConnectedApp = connect(mapStateToProps)(CarRepairApp);
-const {store, persistor} = reduxFunc();
 
 class App extends Component {
   render() {

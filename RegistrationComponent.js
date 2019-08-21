@@ -44,8 +44,7 @@ class RegistrationComponent extends Component {
                     .oneOf([Yup.ref('password'), null], "Passwords Don't Match")
             }) 
         )
-        
-    } 
+    }
 
     checkAvailability = async(phoneNumber) => {
         var parsedNumber = phoneNumber.replace(/-|\(|\)/g, "");
@@ -121,12 +120,13 @@ class RegistrationComponent extends Component {
                     <Text style={{fontSize: 17, textAlign: "center"}}>Enter your phone number below.</Text>
                     <Text style={{fontSize: 17, textAlign: "center"}}>It will act as your username.</Text>
                     <KeyboardAvoidingView>
-                        <View style={{ marginTop: 15, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7" }} >
+                        <View style={{flexDirection: "column", justifyContent: "center", marginTop: 15, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50 }} >
                             <TextInput 
                                 keyboardType="phone-pad" 
                                 placeholder="Phone Number"
                                 onChangeText={props.handleChange('phoneNumber')}
                                 value={props.values.phoneNumber}
+                                style={{marginLeft: 5}}
                             />
                         </View>
                         {props.errors.phoneNumber &&
@@ -138,41 +138,44 @@ class RegistrationComponent extends Component {
         } else {
             return (
                 <View style={{marginHorizontal: 20}}>
-                    <View style={{borderWidth: 0.5, borderRadius: 3, marginTop: 30}}>
-                        <TextInput value={props.values.phoneNumber} editable={false} />
+                    <View style={{flexDirection: "column", justifyContent: "center", borderWidth: 0.5, borderRadius: 3, marginTop: 30, height: 50}}>
+                        <TextInput value={props.values.phoneNumber} editable={false} style={{flexDirection: "column", justifyContent: "center", marginLeft: 5}}/>
                     </View>
 
                     <Text style={{textAlign: "center", marginTop: 10}}>Enter the confirmation number sent to the number above and choose a password:</Text>
-                    <View style={{ marginTop: 10, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7" }} >
+                    <View style={{flexDirection: "column", justifyContent: "center", marginTop: 10, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50 }} >
                         <TextInput 
                             keyboardType="number-pad" 
                             placeholder="Confirmation Number"
                             onChangeText={props.handleChange('confirmationNumber')}
                             value={props.values.confirmationNumber}
+                            style={{marginLeft: 5}}
                         />
                     </View>
                     {props.errors.confirmationNumber &&
                         <Text style={{color: 'red'}}>{props.errors.confirmationNumber}</Text>
                     }
 
-                    <View style={{marginTop: 10, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7" }} >
+                    <View style={{flexDirection: "column", justifyContent: "center", marginTop: 10, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50 }} >
                         <TextInput 
                             secureTextEntry
                             placeholder="Password"
                             onChangeText={props.handleChange('password')}
                             value={props.values.password}
+                            style={{marginLeft: 5}}
                         />
                     </View>
                     {props.errors.password &&
                         <Text style={{color: 'red'}}>{props.errors.password}</Text>
                     }
 
-                    <View style={{ marginTop: 15, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7" }} >
+                    <View style={{flexDirection: "column", justifyContent: "center", marginTop: 15, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50 }} >
                         <TextInput 
                             secureTextEntry 
                             placeholder="Confirm Password"
                             onChangeText={props.handleChange('confirmPassword')}
                             value={props.values.confirmPassword}
+                            style={{marginLeft: 5}}
                         />
                     </View>
                     {props.errors.confirmPassword &&
@@ -204,13 +207,17 @@ class RegistrationComponent extends Component {
                     <View>
                         {this.getFormFields(props)}
                         <View style={{marginHorizontal: 40, marginTop: 20, flexDirection: "row", justifyContent: "center"}}>
-                            <TouchableOpacity onPress={() => this.props.cancel()} style={{backgroundColor: '#d0d5db', height: 40, flex:1, borderRadius: 3, marginRight:5}}>
-                                <Text style={{flex: 1, textAlign: "center", textAlignVertical: "center", fontSize: 17 }}>Cancel</Text>
+                            <TouchableOpacity onPress={() => this.props.cancel()} style={{flex: 1, flexDirection: "column", justifyContent: "center", backgroundColor: '#d0d5db', height: 40, borderRadius: 3, marginRight:5}}>
+                                <View>
+                                    <Text style={{textAlign: "center", fontSize: 17 }}>Cancel</Text>
+                                </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => props.submitForm()} style={{backgroundColor: '#2595f7', height: 40, flex:1, borderRadius: 3, marginRight:5}}>
-                                <Text style={{flex: 1, textAlign: "center", textAlignVertical: "center", fontSize: 17}}>
-                                    {(this.state.confirmationForm === 'open') ? ("Register") : ("Next")}
-                                </Text>
+                            <TouchableOpacity onPress={() => props.submitForm()} style={{flex:1, flexDirection: "column", justifyContent: "center", backgroundColor: '#2595f7', height: 40, borderRadius: 3, marginRight:5}}>
+                                <View>
+                                    <Text style={{textAlign: "center", fontSize: 17}}>
+                                        {(this.state.confirmationForm === 'open') ? ("Register") : ("Next")}
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>

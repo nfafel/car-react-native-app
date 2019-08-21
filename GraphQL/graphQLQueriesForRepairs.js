@@ -1,11 +1,8 @@
-import {gql} from 'apollo-boost';
+import gql from 'graphql-tag';
 import client from './apolloClient';
 
-export const getRepairsData = async(token) => {
+export const getRepairsData = async() => {
     const result = await client.query({
-        variables:{
-            authorization: `Bearer ${token}`
-        },
         query:gql`
             query {
                 repairs {
@@ -29,43 +26,25 @@ export const getRepairsData = async(token) => {
     return result.data.repairs;
 };
 
-export const deleteData = async(repairId, token) => {
+export const deleteData = async(repairId) => {
     const result = await client.mutate({
-        variables:{
-            authorization: `Bearer ${token}`
-        },
         mutation:gql`
             mutation {
-                removeRepair(id: "${repairId}") {
-                    _id
-                    car {
-                        _id
-                        make
-                        model
-                        year
-                        rating
-                    }
-                    date
-                    description
-                    cost 
-                    progress
-                    technician
-                }
+                removeRepair(id: "${repairId}") 
             }
         `
     });
     return result.data.removeRepair;
 }
 
-export const putData = async(repairId, values, token) => {
+export const putData = async(repairId, values) => {
     const result = await client.mutate({
         variables: {
-            authorization: `Bearer ${token}`, 
             input: {
                 car_id: values.car_id,
                 description: values.description,
                 date: values.date,
-                cost: values.cost,
+                cost: parseInt(values.cost),
                 progress: values.progress,
                 technician: values.technician
             }
@@ -93,10 +72,9 @@ export const putData = async(repairId, values, token) => {
     return result.data.updateRepair;
 }
 
-export const postData = async(values, token) => {
+export const postData = async(values) => {
     const result = await client.mutate({
         variables: { 
-            authorization: `Bearer ${token}`, 
             input: {
                 car_id: values.car_id,
                 description: values.description,
@@ -129,34 +107,21 @@ export const postData = async(values, token) => {
     return result.data.createRepair;
 }
 
-export const subscribeToRepairsData = async (context, token) => {
-    client.subscribe({
-        authorization: {
-            authorization: `Bearer ${token}`
-        },
-        query: gql`
-            subscription {
-                repairChanged {
-                    _id
-                    car {
-                        _id
-                        make
-                        model
-                        year
-                        rating
-                    }
-                    date
-                    description
-                    cost 
-                    progress
-                    technician
-                }
-            }
-        `
-    }).subscribe({
-        next(res) {
-            context.setState({repairs: res.data.repairChanged})
-        },
-        error(err) {console.log(err)}
-    });
+export const notifyRepairChange = async(crudType, repair, car, phoneNumber) => {
+    try {
+        fetch(`https://tranquil-caverns-41069.herokuapp.com/sms/${phoneNumber}/notifyRepair`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                crudType: crudType,
+                car: `${car.year} ${car.make} ${car.model}`,
+                description: `${repair.description}`
+            })
+        });
+    } catch(err) {
+        console.log(err);
+    }
 }

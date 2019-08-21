@@ -1,11 +1,8 @@
-import {gql} from 'apollo-boost';
+import gql from 'graphql-tag';
 import client from './apolloClient'
 
-export const getCarsData = async(token) => {
+export const getCarsData = async() => {
   const result = await client.query({
-    variables: {
-      authorization: `Bearer ${token}`
-    },
     query: gql`
       query {
         cars {
@@ -21,30 +18,20 @@ export const getCarsData = async(token) => {
   return result.data.cars;
 };
 
-export const deleteData = async(carId, token) => {
+export const deleteData = async(carId) => {
   const result = await client.mutate({
-    variables: {
-      authorization: `Bearer ${token}`
-    },
     mutation: gql` 
       mutation {
-        removeCar(id: "${carId}") {
-          _id 
-          make
-          model 
-          year
-          rating
-        }
+        removeCar(id: "${carId}") 
       }
     `
   });
   return result.data.removeCar;
 }
 
-export const putData = async(carId, values, token) => {
+export const putData = async(carId, values) => {
   const result = await client.mutate({
     variables: {
-      authorization: `Bearer ${token}`,
       input: {
         make: values.make,
         model: values.model,
@@ -70,7 +57,6 @@ export const putData = async(carId, values, token) => {
 export const postData = async(values, token) => {
   const result = await client.mutate({
     variables: {
-      authorization: `Bearer ${token}`,
       input: {
         make: values.make,
         model: values.model,
@@ -93,11 +79,8 @@ export const postData = async(values, token) => {
   return result.data.createCar;
 }
 
-export const getRepairsForCar = async(repairsForCarId, token) => {
+export const getRepairsForCar = async(repairsForCarId) => {
   const result = await client.query({
-    variables: {
-      authorization: `Bearer ${token}`
-    },
     query: gql`
       query {
         repairsForCar(carId: "${repairsForCarId}") {
@@ -156,3 +139,21 @@ export const getAllCarModels = async(make, year) => {
   });
   return result.data.allModels;
 };
+
+export const notifyCarChange = async(crudType, values, phoneNumber) => {
+  try {
+    fetch(`https://tranquil-caverns-41069.herokuapp.com/sms/${phoneNumber}/notifyCar`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        crudType: crudType,
+        car: `${values.year} ${values.make} ${values.model}`
+      })
+    });
+  } catch(err) {
+    alert(err)
+  }
+}

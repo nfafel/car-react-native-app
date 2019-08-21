@@ -126,7 +126,8 @@ class CarFormComponent extends Component {
             <Modal 
                 avoidKeyboard={true}
                 style={{
-                    margin: 20,
+                    marginHorizontal: 5,
+                    marginVertical: 30,
                     flex: 1,
                 }}
                 isVisible={this.props.shouldGetPutData || this.props.shouldGetPostData}>

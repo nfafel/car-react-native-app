@@ -1,6 +1,5 @@
-import { gql } from "apollo-boost";
+import gql from "graphql-tag";
 import client from './apolloClient';
-import AsyncStorage from '@react-native-community/async-storage'
 
 export const prepareGraphQLLogin = async(values, context) => { 
     var parsedNumber = `1${values.phoneNumber.replace(/-|\(|\)/g, "")}`;
@@ -53,8 +52,7 @@ const confirmGraphQLLogin = async(parsedNumber, token, context) => {
 export const graphQLLogin = async(values, context) => {
     if (values.confirmationNumber === context.state.confirmationNumber) {
         try { 
-            context.props.setQueryType(values.queryType);   
-            context.props.loginUser(context.state.token);
+            context.props.loginUser(context.state.token, values.queryType);
         } catch(err) {
             console.log(err)
         }

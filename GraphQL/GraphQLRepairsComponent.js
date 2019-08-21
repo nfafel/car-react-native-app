@@ -9,42 +9,94 @@ import { Table, Row, Col } from 'react-native-table-component';
 
 const queryFunctions = require('./graphQLQueriesForRepairs');
 const queryFunctionsForCars = require('./graphQLQueriesForCars');
+const subscriptions = require('./subscriptions');
+
+import { connect } from 'react-redux';
+import {logoutUser} from '../redux/actions';
+
+import client from './apolloClient';
 
 class RepairsComponent extends Component {
     constructor(props){
       super(props);
       this.state = {
         cars: null,
-        repairs: null,
+        mergedRepairs: null,
         shouldGetPostData: false,
         shouldGetPutData: false,
-        repairIdUpdate: null
+        repairUpdated: null
       }
     }
     
-    componentDidMount() {
-        queryFunctions.getRepairsData()
-            .then(res => this.setState({repairs: res}) )
-            .catch(err => console.log(err))
+    async componentDidMount() {
+        try{
+            const repairs = await queryFunctions.getRepairsData();
+            const cars = await queryFunctionsForCars.getCarsData();
+            this.setState({ 
+                mergedRepairs: repairs,
+                cars: cars
+            })
 
-        // queryFunctions.subscribeToRepairsData(this)
-        //     .catch(err => console.log(err))
+            client.subscribe(subscriptions.carCreatedSubscription).subscribe(res => {
+                const newCars = [].concat(this.state.cars);
+                newCars.push(res.data.carCreated);
+                this.setState({cars: newCars})
+            });
+
+            client.subscribe(subscriptions.carUpdatedSubscription).subscribe(res => {
+                var newRepairs = [].concat(this.state.mergedRepairs);
+                newRepairs.forEach(repair => {
+                    if (repair.car._id === res.data.carUpdated._id) {
+                        repair.car = res.data.carUpdated;
+                    }
+                });
+
+                const newCars = this.state.cars.map(car => {
+                    if (car._id !== res.data.carUpdated._id) {
+                        return car;
+                    } else {
+                        return res.data.carUpdated;
+                    }
+                })
+                this.setState({mergedRepairs: newRepairs, cars: newCars})
+            });
+
+            client.subscribe(subscriptions.carRemovedSubscription).subscribe(res => {
+                const deletedId = res.data.carRemoved
+                const newRepairs = this.state.mergedRepairs.filter(repair => repair.car._id !== deletedId);
+                const newCars = this.state.cars.filter(car => car._id !== deletedId);
+                this.setState({mergedRepairs: newRepairs, cars: newCars})
+            })
+
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message);
+        }
     }
     
-    callDeleteData(repairId) {
-        queryFunctions.deleteData(repairId)
-            .then(res => this.setState({repairs: res}) )
-            .catch(err => console.log(err));
+    callDeleteData = async(repair) => {
+        try {
+            const deletedId = await queryFunctions.deleteData(repair._id);
+            const newRepairs = this.state.mergedRepairs.filter(repair => repair._id !== deletedId);
+            this.setState({mergedRepairs: newRepairs});
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyRepairChange("delete", repair, repair.car, this.props.phoneNumber)
+            }
+
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message);
+        }
     }
   
     getPutData(repair, setValues) {
-        queryFunctionsForCars.getCarsData()
-            .then(res => this.setState({
-                cars: res,
-                shouldGetPutData: true,
-                repairIdUpdate: repair._id
-            }))
-            .catch(err => console.log(err))
         setValues({
             car_id: repair.car._id,
             description: repair.description,
@@ -53,25 +105,41 @@ class RepairsComponent extends Component {
             progress: repair.progress,
             technician: repair.technician
         });
+        this.setState({
+            shouldGetPutData: true,
+            repairUpdated: repair
+        });
     }
   
-    callPutData(repairId, values) {
-        queryFunctions.putData(repairId, values)
-            .then(res => this.setState({
-                    repairs: res, 
-                    shouldGetPutData: false,
-                    repairIdUpdate: null
-                }))
-            .catch(err => alert(err));
+    callPutData = async(repairId, values) => {
+        try {
+            const updatedRepair = await queryFunctions.putData(repairId, values);
+            const newRepairs = this.state.mergedRepairs.map((repair) => {
+                if (repair._id === updatedRepair._id) {
+                    return updatedRepair;
+                }
+                return repair;
+            })
+            this.setState({
+                mergedRepairs: newRepairs, 
+                shouldGetPutData: false,
+                repairUpdated: null
+            })
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyRepairChange("delete", updatedRepair, updatedRepair.car, this.props.phoneNumber)
+            }
+
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message);
+        }
     }
   
     getPostData(resetForm) {
-        queryFunctionsForCars.getCarsData()
-            .then(res => this.setState({
-                cars: res,
-                shouldGetPostData: true,
-            }))
-            .catch(err => console.log(err))
         resetForm({
             car_id: "",
             description: "",
@@ -80,15 +148,29 @@ class RepairsComponent extends Component {
             progress: "",
             technician: ""
         })
+        this.setState({shouldGetPostData: true});
     }
   
-    callPostData(values) {
-        queryFunctions.postData(values)
-            .then(res => this.setState({
-                    repairs: res, 
-                    shouldGetPostData: false
-                }))
-            .catch(err => console.log(err));
+    callPostData = async(values) => {
+        try {
+            const newRepair = await queryFunctions.postData(values);
+            const newRepairs = [].concat(this.state.mergedRepairs);
+            newRepairs.push(newRepair);
+            this.setState({
+                mergedRepairs: newRepairs, 
+                shouldGetPostData: false
+            })
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyRepairChange("delete", newRepair, newRepair.car, this.props.phoneNumber)
+            }
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message);
+        }
     }
 
     getRepairsDisplay = (props) => {
@@ -97,7 +179,7 @@ class RepairsComponent extends Component {
         } else if (this.state.shouldGetPostData) {
             return <RepairFormComponent cars={this.state.cars} visible={this.state.shouldGetPostData || this.state.shouldGetPutData} formikProps={props} submitText={"SUBMIT"} cancel={() => this.setState({shouldGetPostData: false})} />
         }
-        var repairsDisplay = this.state.repairs.map((repair) => { 
+        var repairsDisplay = this.state.mergedRepairs.map((repair) => { 
             return (
                 <View style={{marginVertical: 10}} >
                     <Table>
@@ -111,7 +193,7 @@ class RepairsComponent extends Component {
                             <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(repair, props.setValues)} >
                                 <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
                             </TouchableOpacity>,
-                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(repair._id)} >
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(repair)} >
                                 <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
                             </TouchableOpacity>
                             ]}
@@ -127,7 +209,7 @@ class RepairsComponent extends Component {
       if (this.state.shouldGetPostData) {
         this.callPostData(values);
       } else {
-        this.callPutData(this.state.repairIdUpdate, values);
+        this.callPutData(this.state.repairUpdated._id, values);
       }
     }
   
@@ -162,7 +244,7 @@ class RepairsComponent extends Component {
     }
   
     render() {
-        if (this.state.repairs == null) {
+        if (this.state.mergedRepairs === null) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{color: 'black', fontSize: 25, fontWeight: 'bold'}}>Loading...</Text>
@@ -196,6 +278,18 @@ class RepairsComponent extends Component {
             </View>
         );
     }
-  }
-  
-  export default RepairsComponent;
+}
+
+const mapStateToProps = function(state) {
+    return {
+        subscribed: state.subscribed,
+        phoneNumber: state.phoneNumber
+    }
+}
+const mapDispatchToProps = function(dispatch) {
+    return {
+        logoutUser: () => dispatch(logoutUser()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RepairsComponent);

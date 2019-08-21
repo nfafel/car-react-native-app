@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, TextInput, KeyboardAvoidingView } from 'r
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import {loginUser, setQueryType} from './redux/actions';
+import { loginUser } from './redux/actions';
 import { connect } from 'react-redux';
 import { prepareLogin, login } from './Rest/restLoginFunc'
 import { prepareGraphQLLogin, graphQLLogin } from './GraphQL/graphQLLoginFunc'
@@ -82,12 +82,13 @@ class LoginComponent extends Component {
                 <View >
                     <Text style={{fontSize: 25, margin: 7, textAlign: "center"}}>Login</Text>
                     <KeyboardAvoidingView style={{marginHorizontal: 20, marginTop: 15, marginBottom: 10}}>
-                        <View style={{ borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7" }} >
+                        <View style={{flexDirection: "column", justifyContent: "center", borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50 }} >
                             <TextInput 
                                 keyboardType="phone-pad" 
                                 placeholder="Phone Number"
                                 onChangeText={props.handleChange('phoneNumber')}
                                 value={props.values.phoneNumber}
+                                style={{marginLeft: 5}}
                             />
                         </View>
                         {props.errors.phoneNumber &&
@@ -95,12 +96,13 @@ class LoginComponent extends Component {
                         }
                     </KeyboardAvoidingView>
                     <KeyboardAvoidingView style={{marginHorizontal: 20}}>
-                        <View style={{borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7"}} >
+                        <View style={{borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50, flexDirection: "column", justifyContent: "center"}} >
                             <TextInput 
                                 onChangeText={props.handleChange('password')}
                                 value={props.values.password}
                                 placeholder="Password" 
                                 secureTextEntry
+                                style={{marginLeft: 5}}
                             />
                         </View>
                         {props.errors.password &&
@@ -124,8 +126,8 @@ class LoginComponent extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{marginHorizontal: 20, marginVertical: 10 }}>
-                        <TouchableOpacity style={{backgroundColor: '#2595f7', borderRadius: 3, height: 40 }} onPress={() => props.submitForm()} >
-                            <Text style={{flex: 1, textAlign: "center", textAlignVertical: "center", fontSize: 17, color: "white"}}>Next</Text>
+                        <TouchableOpacity style={{flexDirection:"row", justifyContent: "center", backgroundColor: '#2595f7', borderRadius: 3, height: 40 }} onPress={() => props.submitForm()} >
+                            <Text style={{flex: 1, flexDirection: "column", alignSelf: "center", textAlign: "center", fontSize: 17, color: "white"}}>Next</Text>
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity style={{flexDirection: "row", justifyContent: 'center'}} onPress={() => this.props.createAccount()}>
@@ -136,30 +138,35 @@ class LoginComponent extends Component {
         } else {
             loginForm = (
                 <View >
-                    <View style={{marginHorizontal: 20, marginVertical: 10, borderWidth: 0.5, borderRadius: 3}}>
-                        <TextInput value={props.values.phoneNumber} editable={false} />
+                    <View style={{flexDirection: "column", justifyContent: "center", marginHorizontal: 20, marginVertical: 10, borderWidth: 0.5, borderRadius: 3, height: 50}}>
+                        <TextInput value={props.values.phoneNumber} editable={false} style={{marginLeft: 5, flexDirection: "column", justifyContent: "center"}} />
                     </View>
-                    <View style={{marginHorizontal: 20, marginBottom: 10, borderWidth: 0.5, borderRadius: 3}}>
-                        <TextInput secureTextEntry value={props.values.password} editable={false} />
+                    <View style={{flexDirection: "column", justifyContent: "center", marginHorizontal: 20, marginBottom: 10, borderWidth: 0.5, borderRadius: 3, height: 50}}>
+                        <TextInput secureTextEntry value={props.values.password} editable={false} style={{marginLeft: 5, flexDirection: "column", justifyContent: "center"}} />
                     </View>
                     <Text style={{textAlign: "center", fontSize: 20, marginTop: 15}} >Confirmation Number:</Text>
-                    <KeyboardAvoidingView style={{marginVertical: 10, marginHorizontal: 20, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7"}}>
+                    <KeyboardAvoidingView style={{flexDirection: "column", justifyContent: "center", marginVertical: 10, marginHorizontal: 20, borderWidth: 0.5, borderRadius: 3, backgroundColor: "#f7f7f7", height: 50}}>
                         <TextInput 
                             onChangeText={props.handleChange('confirmationNumber')}
                             value={props.values.confirmationNumber}
                             placeholder="Confirmation Number" 
                             keyboardType="number-pad"
+                            style={{marginLeft: 5}}
                         />
                         {props.errors.password &&
                             <Text style={{color: 'red'}}>{props.errors.password}</Text>
                         }
                     </KeyboardAvoidingView>
                     <View style={{marginHorizontal: 40, marginTop: 10, flexDirection: "row", justifyContent: 'space-between'}}>
-                        <TouchableOpacity style={{backgroundColor: '#d0d5db', height: 40, flex:1, borderRadius: 3, marginRight:5}} onPress={() => this.resetLogin(props.resetForm)}>
-                            <Text style={{flex: 1, textAlign: "center", textAlignVertical: "center", fontSize: 17}}>Close</Text>
+                        <TouchableOpacity onPress={() => this.resetLogin(props.resetForm)} style={{flex: 1, flexDirection: "column", justifyContent: "center", backgroundColor: '#d0d5db', height: 40, borderRadius: 3, marginRight:5}}>
+                            <View style={{}}>
+                                <Text style={{textAlign: "center", fontSize: 17}}>Close</Text>
+                            </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{backgroundColor: '#2595f7', height: 40, flex:1, borderRadius: 3, marginLeft: 5}} onPress={() => props.submitForm() } >
-                            <Text style={{flex: 1, textAlign: "center", textAlignVertical: "center", fontSize: 17}}>Login</Text>
+                        <TouchableOpacity onPress={() => props.submitForm() } style={{flex: 1, flexDirection: "column", justifyContent: "center", backgroundColor: '#2595f7', height: 40, borderRadius: 3, marginLeft: 5}} >
+                            <View style={{}}>
+                                <Text style={{textAlign: "center", fontSize: 17}}>Login</Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -169,6 +176,7 @@ class LoginComponent extends Component {
     }
 
     handleSubmit = (values) => {
+        console.log(values.queryType)
         if (values.queryType === "rest") {
             if (this.state.loginForm === "open") {
                 prepareLogin(values, this)
@@ -204,15 +212,15 @@ class LoginComponent extends Component {
 
 const mapDispatchToProps = function(dispatch) {
     return {
-        loginUser: (token) => {
+        loginUser: (token, queryType) => {
             const decoded = jwtDecode(token);
             dispatch( loginUser({
                 token: token, 
                 subscribed: decoded.payload.subscribed,
-                phoneNumber: decoded.payload.phoneNumber
+                phoneNumber: decoded.payload.phoneNumber,
+                queryType: queryType
             }))
         },
-        setQueryType: queryType => dispatch(setQueryType({queryType: queryType}))
     }
 }
   

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { View, Text, Button, TextInput, Picker, TouchableOpacity } from 'react-native';
-import { Row, Col, Table } from 'react-native-table-component';
+import { View, Text, TextInput, Picker, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Row } from 'react-native-table-component';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Modal from "react-native-modal";
 
@@ -47,11 +47,11 @@ class RepairFormComponent extends Component {
             <Modal 
                 avoidKeyboard={true}
                 style={{
-                    margin: 20,
                     flex: 1,
+                    marginHorizontal:0,
                 }}
                 isVisible={true}>
-                <View style={{flex:1, backgroundColor: 'white'}}>
+                <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
                     <Row style={{flex:1}} textStyle={{textAlign: 'center'}} data={[
                         <View>
                             <Text style={{ fontSize: 20, alignSelf: 'center' }}>Car</Text>
@@ -154,7 +154,7 @@ class RepairFormComponent extends Component {
                         </TouchableOpacity>
                         ]}
                     />
-                </View>
+                </SafeAreaView>
             </Modal>
         )
     }

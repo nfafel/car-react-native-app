@@ -1,41 +1,81 @@
 import React, {Component} from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Table, Row, Col, Rows } from 'react-native-table-component';
+import { Table, Row } from 'react-native-table-component';
 import { connect } from 'react-redux';
 import {logoutUser} from '../redux/actions';
 
-const queryFunctions = require('./graphQLQueriesForRepairs')
+const queryFunctions = require('./graphQLQueriesForRepairs');
+const subscriptions = require('./subscriptions');
+
+import client from './apolloClient';
 
 class HomeComponent extends Component {
     constructor(props){
         super(props);
         this.state = {
-            repairs: null
+            mergedRepairs: null
         }
     }
     
     async componentDidMount() {
         try {
             const repairs = await queryFunctions.getRepairsData(this.props.token);
-            this.setState({repairs: repairs});
+            this.setState({mergedRepairs: repairs});
+            
+            client.subscribe(subscriptions.repairCreatedSubscription).subscribe(res => {
+                const newRepairs = [].concat(this.state.mergedRepairs);
+                newRepairs.push(res.data.repairCreated);
+                this.setState({mergedRepairs: newRepairs})
+            });
+
+            client.subscribe(subscriptions.repairUpdatedSubscription).subscribe(res => {
+                const newRepairs = this.state.mergedRepairs.map(repair => {
+                    if (repair._id !== res.data.repairUpdated._id) {
+                        return repair;
+                    } else {
+                        return res.data.repairUpdated;
+                    }
+                })
+                this.setState({mergedRepairs: newRepairs})
+            });
+
+            client.subscribe(subscriptions.repairRemovedSubscription).subscribe(res => {
+                const deletedId = res.data.repairRemoved
+                const newRepairs = this.state.mergedRepairs.filter(repair => repair._id !== deletedId)
+                this.setState({mergedRepairs: newRepairs})
+            });
+
+            client.subscribe(subscriptions.carUpdatedSubscription).subscribe(res => {
+                var newRepairs = [].concat(this.state.mergedRepairs);
+                newRepairs.forEach(repair => {
+                    if (repair.car._id === res.data.carUpdated._id) {
+                        repair.car = res.data.carUpdated;
+                    }
+                });
+                this.setState({mergedRepairs: newRepairs});
+            })
+
+            client.subscribe(subscriptions.carRemovedSubscription).subscribe(res => {
+                const deletedId = res.data.carRemoved
+                const newRepairs = this.state.mergedRepairs.filter(repair => repair.car._id !== deletedId);
+                this.setState({mergedRepairs: newRepairs})
+            })
+
         } catch(err) {
-            if (err.message === "GraphQL error: Unautticated") {
+            if (err.message === "GraphQL error: Unautenticated") {
                 this.props.logoutUser();
                 setTimeout(() => alert("You have been automatically logged out. Please login in again."))
             }
             console.log(err.message);
         }
-        
-        // queryFunctions.subscribeToRepairsData(this)
-        //     .catch(err => console.log(err)); 
     }
 
     getRepairsDisplay = () => {
         var repairsDisplay = [];
-        var numRepairs = this.state.repairs.length;
+        var numRepairs = this.state.mergedRepairs.length;
 
         for (var i=numRepairs-1; i>=0; i--) {
-            var repair = this.state.repairs[i];
+            var repair = this.state.mergedRepairs[i];
             if (numRepairs <= 5 || i >= numRepairs-5) {
                 repairsDisplay.push(
                     <View style={{marginVertical: 10}}>
@@ -55,7 +95,7 @@ class HomeComponent extends Component {
     }
     
     render() {
-        if (this.state.repairs == null) {
+        if (this.state.mergedRepairs === null) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{color: 'black', fontSize: 25, fontWeight: 'bold'}}>Loading...</Text>

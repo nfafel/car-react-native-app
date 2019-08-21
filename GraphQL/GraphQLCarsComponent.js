@@ -6,6 +6,8 @@ import * as Yup from 'yup'
 import RepairsByCarComponent from '../RepairsByCarComponent'
 import CarFormComponent from '../CarFormComponent'
 import { Table, Row, Col } from 'react-native-table-component';
+import { connect } from 'react-redux';
+import {logoutUser} from '../redux/actions';
 
 const queryFunctions = require('./graphQLQueriesForCars');
 
@@ -18,28 +20,48 @@ class CarsComponent extends Component {
         shouldGetPutData: false,
         carIdUpdate: null,
         repairsForCar: null,
-        repairCarId: null,
-        repairCarMake: null,
-        repairCarModel: null,
-        repairCarYear: null,
+        repairCar: null,
         carForm: null,
         modalVisible: false
       }
     }
         
-    componentDidMount() {
-        queryFunctions.getCarsData()
-            .then(res => this.setState({ cars: res }))
-            .catch(err => console.log(err));
+    async componentDidMount() {
+        try {
+            const cars = await queryFunctions.getCarsData();
+            this.setState({ cars: cars })
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message)
+        }
     }
   
-    callDeleteData(carId) {
-        queryFunctions.deleteData(carId)
-            .then(res => this.setState({cars: res}))
-            .catch(err => console.log(err));
+    callDeleteData = async(car) => {
+        try {
+            const deletedCarId = await queryFunctions.deleteData(car._id);
+            const newCarsData = this.state.cars.filter(car => car._id !== deletedCarId);
 
-        if (this.state.repairCarId === carId) {
-            this.setState( {repairsForCar: null} );
+            if (this.state.repairCarId === car._id) { //reset the repairs shown for the car if car is deleted
+                this.setState({ 
+                    repairsForCar: null,
+                    cars: newCarsData
+                });
+            } else {
+                this.setState({ cars: newCarsData });
+            }
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyCarChange("delete", car, this.props.phoneNumber)
+            }
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message)
         }
     }
   
@@ -56,15 +78,33 @@ class CarsComponent extends Component {
       });
     }
   
-    callPutData(carId, values) {
-        queryFunctions.putData(carId, values)
-            .then(res => this.setState({ 
-                cars: res,
-                shouldGetPostData: false,
+    callPutData = async(carId, values) => {
+        try {
+            const updatedCar = await queryFunctions.putData(carId, values)
+            const newCarsData = this.state.cars.map((car) => {
+                if (car._id === updatedCar._id) {
+                    return updatedCar;
+                } else {
+                    return car;
+                }
+            })
+
+            this.setState({
+                cars: newCarsData,
                 shouldGetPutData: false,
                 carIdUpdate: null
-            }))
-            .catch(err => console.log(err));
+            })
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyCarChange("update", values, this.props.phoneNumber)
+            }
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message)
+        }
     }
   
   
@@ -78,28 +118,46 @@ class CarsComponent extends Component {
         })
     }
   
-    callPostData(values) {
-        queryFunctions.postData(values)
-            .then(res => this.setState({ 
-                cars: res,
+    callPostData = async(values) => {
+        try {
+            const newCar = await queryFunctions.postData(values)
+            var newCarsData = this.state.cars;
+            newCarsData.push(newCar);
+
+            this.setState({
+                cars: newCarsData,
                 shouldGetPostData: false,
-                shouldGetPutData: false,
-                carIdUpdate: null,
-            }))
-            .catch(err => console.log(err));
+            })
+
+            if (this.props.subscribed) {
+                queryFunctions.notifyCarChange("create", values, this.props.phoneNumber)
+            }
+
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message)
+        }
     }
 
-    setRepairsForCar = (repairCarId, repairCarMake, repairCarModel, repairCarYear) => {
-        queryFunctions.getRepairsForCar(repairCarId)
-            .then(res => this.setState({ 
-                repairsForCar: res,
-                repairCarId: repairCarId,
-                repairCarMake: repairCarMake,
-                repairCarModel: repairCarModel,
-                repairCarYear: repairCarYear,
+    setRepairsForCar = async(car) => {
+        console.log(car)
+        try {
+            const repairsForCar = await queryFunctions.getRepairsForCar(car._id)
+            this.setState({
+                repairsForCar: repairsForCar,
+                repairCar: car,
                 modalVisible: true
-            }))
-            .catch(err => console.log(err));
+            })
+        } catch(err) {
+            if (err.message === "GraphQL error: Unauthorized") {
+                this.props.logoutUser();
+                setTimeout(() => alert("You have been automatically logged out. Please login in again."))
+            }
+            console.log(err.message)
+        }
     }
 
     showRepairsForCar = () => {
@@ -115,7 +173,7 @@ class CarsComponent extends Component {
                 >
                     <View style={{flex: 1}}>
                         <View style={{flex:0.9, justifyContent: 'center'}}>
-                            <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCarMake={this.state.repairCarMake} repairCarModel={this.state.repairCarModel} repairCarYear={this.state.repairCarYear} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
+                            <RepairsByCarComponent repairsForCar={this.state.repairsForCar} repairCar={this.state.repairCar} rowColStyles={this.rowColStyles} tableStyles={this.tableStyles} />
                         </View>
                         <View style={{flex:0.1, justifyContent: 'flex-end'}}>
                             <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setState({modalVisible: false})}>
@@ -158,10 +216,10 @@ class CarsComponent extends Component {
                             <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.getPutData(car, props.setValues)} >
                                 <Text style={{color: 'white', fontSize: 16}}>EDIT</Text>
                             </TouchableOpacity>,
-                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car._id, car.make, car.model, car.year)} >
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.setRepairsForCar(car)} >
                                 <Text style={{color: 'white', fontSize: 16}}>SEE REPAIRS</Text>
                             </TouchableOpacity>,
-                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car._id)} >
+                            <TouchableOpacity style={{backgroundColor: '#57b0ff', justifyContent: 'center', flexDirection: 'row'}} onPress={() => this.callDeleteData(car)} >
                                 <Text style={{color: 'white', fontSize: 16}}>DELETE</Text>
                             </TouchableOpacity>
                             ]}
@@ -237,4 +295,16 @@ class CarsComponent extends Component {
     }
 }
 
-export default CarsComponent;
+const mapStateToProps = function(state) {
+    return {
+        subscribed: state.subscribed,
+        phoneNumber: state.phoneNumber
+    }
+}
+const mapDispatchToProps = function(dispatch) {
+    return {
+        logoutUser: () => dispatch(logoutUser()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsComponent);
