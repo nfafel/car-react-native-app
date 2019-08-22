@@ -127,7 +127,7 @@ class RepairsComponent extends Component {
             })
 
             if (this.props.subscribed) {
-                queryFunctions.notifyRepairChange("delete", updatedRepair, updatedRepair.car, this.props.phoneNumber)
+                queryFunctions.notifyRepairChange("update", updatedRepair, updatedRepair.car, this.props.phoneNumber)
             }
 
         } catch(err) {
@@ -162,7 +162,7 @@ class RepairsComponent extends Component {
             })
 
             if (this.props.subscribed) {
-                queryFunctions.notifyRepairChange("delete", newRepair, newRepair.car, this.props.phoneNumber)
+                queryFunctions.notifyRepairChange("create", newRepair, newRepair.car, this.props.phoneNumber)
             }
         } catch(err) {
             if (err.message === "GraphQL error: Unauthorized") {
